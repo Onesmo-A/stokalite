@@ -5,6 +5,7 @@ import {Modal} from 'react-bootstrap-v5';
 import {getFormattedMessage, placeholderText} from "../../shared/sharedMethod";
 import {editCurrency} from '../../store/action/currencyAction';
 import ModelFooter from '../../shared/components/modelFooter';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const CurrencyForm = (props) => {
     const {addCurrencyData, editCurrency, singleCurrency, handleClose, show, title} = props;
@@ -20,6 +21,7 @@ const CurrencyForm = (props) => {
         code: '',
         symbol: ''
     });
+    useScrollToFirstError(errors);
 
     const disabled = singleCurrency && singleCurrency.name === formValue.name.trim() && singleCurrency.code === formValue.code.trim() && singleCurrency.symbol === formValue.symbol.trim();
 

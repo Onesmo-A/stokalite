@@ -8,6 +8,7 @@ import ImagePicker from '../../shared/image-picker/ImagePicker';
 import user from '../../assets/images/productCategory_logo.jpeg';
 import {getFormattedMessage, placeholderText} from '../../shared/sharedMethod';
 import ModelFooter from '../../shared/components/modelFooter';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const ProductCategoryForm = (props) => {
     const {handleClose, show, title, addProductData, editProductCategory, singleProductCategory} = props;
@@ -19,6 +20,7 @@ const ProductCategoryForm = (props) => {
     const [errors, setErrors] = useState({
         name: '',
     });
+    useScrollToFirstError(errors);
     const editImg = singleProductCategory ? singleProductCategory.image : user;
     const newImg = productCategoryValue.image === false ? user : editImg;
     const [imagePreviewUrl, setImagePreviewUrl] = useState(newImg);

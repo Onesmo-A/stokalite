@@ -7,6 +7,7 @@ import user from '../../assets/images/brand_logo.png';
 import {getFormattedMessage} from '../../shared/sharedMethod';
 import {placeholderText} from '../../shared/sharedMethod';
 import ModelFooter from '../../shared/components/modelFooter';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const BrandsFrom = (props) => {
     const {handleClose, show, title, addBrandData, editBrand, singleBrand} = props;
@@ -16,6 +17,7 @@ const BrandsFrom = (props) => {
         image: singleBrand ? singleBrand.image : ''
     });
     const [errors, setErrors] = useState({name: ''});
+    useScrollToFirstError(errors);
 
     const editImg = singleBrand ? singleBrand.image : user;
     const newImg = formValue.image === false ? user : editImg;

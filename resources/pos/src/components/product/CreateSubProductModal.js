@@ -8,6 +8,7 @@ import ReactSelect from "../../shared/select/reactSelect";
 import { addProduct } from "../../store/action/productAction";
 import { useNavigate } from "react-router";
 import { upperCase } from "lodash";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const CreateSubProductModal = (props) => {
 
@@ -22,6 +23,7 @@ const CreateSubProductModal = (props) => {
         tax_type: "",
     });
     const [errors, setErrors] = useState({});
+    useScrollToFirstError(errors);
     const taxTypeFilterOptions = getFormattedOptions(taxMethodOptions);
 
     const dispatch = useDispatch();

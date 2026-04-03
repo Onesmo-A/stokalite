@@ -34,6 +34,7 @@ import { addUnit } from "../../store/action/unitsAction";
 import { fetchAllVariations } from "../../store/action/variationAction";
 import ReactMultiSelect from "../../shared/select/ReactMultiSelect";
 import { toUpper } from "lodash";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const ProductForm = (props) => {
     const {
@@ -101,6 +102,7 @@ const ProductForm = (props) => {
     const [isDropdown, setIsDropdown] = useState(true);
     const [multipleFiles, setMultipleFiles] = useState([]);
     const [errors, setErrors] = useState({});
+    useScrollToFirstError(errors);
 
     useEffect(() => {
         fetchAllBrands();
@@ -516,6 +518,33 @@ const ProductForm = (props) => {
         return invalid;
     };
 
+    const scrollToFirstError = (errs) => {
+        try {
+            const keys = Object.keys(errs || {});
+            if (!keys.length) return;
+            const key = keys[0];
+
+            const direct = document.querySelector(`[name="${key}"]`);
+            const field =
+                direct ||
+                document.querySelector(`[data-field="${key}"]`) ||
+                document.getElementById(`field-${key}`);
+
+            if (!field) return;
+
+            field.scrollIntoView({ behavior: "smooth", block: "center" });
+            const focusTarget =
+                field.matches?.("input,select,textarea")
+                    ? field
+                    : field.querySelector?.(
+                          "input,select,textarea,button,[tabindex]:not([tabindex='-1'])"
+                      );
+            focusTarget?.focus?.({ preventScroll: true });
+        } catch (e) {
+            // ignore
+        }
+    };
+
     const handleValidation = () => {
         let errorss = {};
         let isValid = false;
@@ -654,6 +683,9 @@ const ProductForm = (props) => {
             isValid = true;
         }
         setErrors(errorss);
+        if (!isValid && Object.keys(errorss).length) {
+            scrollToFirstError(errorss);
+        }
         return isValid;
     };
 
@@ -872,7 +904,7 @@ const ProductForm = (props) => {
                                             placeholder={placeholderText(
                                                 "globally.input.name.placeholder.label"
                                             )}
-                                            className="form-control"
+                                            className={`form-control ${errors["name"] ? "is-invalid" : ""}`}
                                             autoFocus={true}
                                             onChange={(e) => onChangeInput(e)}
                                         />
@@ -893,7 +925,7 @@ const ProductForm = (props) => {
                                         <input
                                             type="text"
                                             name="code"
-                                            className=" form-control"
+                                            className={`form-control ${errors["code"] ? "is-invalid" : ""}`}
                                             placeholder={placeholderText(
                                                 "product.input.code.placeholder.label"
                                             )}
@@ -906,7 +938,7 @@ const ProductForm = (props) => {
                                                 : null}
                                         </span>
                                     </div>
-                                    <div className="col-md-6 mb-3">
+                                    <div className="col-md-6 mb-3" id="field-product_category_id" data-field="product_category_id">
                                         <ReactSelect
                                             title={getFormattedMessage(
                                                 "product.input.product-category.label"
@@ -927,7 +959,7 @@ const ProductForm = (props) => {
                                             }
                                         />
                                     </div>
-                                    <div className="col-md-6 mb-3">
+                                    <div className="col-md-6 mb-3" id="field-brand_id" data-field="brand_id">
                                         <ReactSelect
                                             title={getFormattedMessage(
                                                 "product.input.brand.label"
@@ -942,7 +974,7 @@ const ProductForm = (props) => {
                                             value={productValue.brand_id}
                                         />
                                     </div>
-                                    <div className="col-md-6 mb-3">
+                                    <div className="col-md-6 mb-3" id="field-barcode_symbol" data-field="barcode_symbol">
                                         <ReactSelect
                                             title={getFormattedMessage(
                                                 "product.input.barcode-symbology.label"
@@ -957,7 +989,7 @@ const ProductForm = (props) => {
                                             value={productValue.barcode_symbol}
                                         />
                                     </div>
-                                    <div className="col-md-6 mb-3">
+                                    <div className="col-md-6 mb-3" id="field-product_unit" data-field="product_unit">
                                         <InputGroup className="flex-nowrap dropdown-side-btn">
                                             <ReactSelect
                                                 className="position-relative"
@@ -991,7 +1023,7 @@ const ProductForm = (props) => {
                                             </Button>
                                         </InputGroup>
                                     </div>
-                                    <div className="col-md-6 mb-3">
+                                    <div className="col-md-6 mb-3" id="field-sale_unit" data-field="sale_unit">
                                         <ReactSelect
                                             className="position-relative"
                                             title={getFormattedMessage(
@@ -1010,7 +1042,7 @@ const ProductForm = (props) => {
                                             onChange={handleSaleUnitChange}
                                         />
                                     </div>
-                                    <div className="col-md-6 mb-3">
+                                    <div className="col-md-6 mb-3" id="field-purchase_unit" data-field="purchase_unit">
                                         <ReactSelect
                                             className="position-relative"
                                             title={getFormattedMessage(
@@ -1117,7 +1149,7 @@ const ProductForm = (props) => {
                                             :{" "}
                                         </h1>
                                     </div>
-                                    <div className="col-md-12 mb-3">
+                                    <div className="col-md-12 mb-3" id="field-warehouse_id" data-field="warehouse_id">
                                         <ReactSelect
                                             data={warehouses}
                                             onChange={onWarehouseChange}
@@ -1134,7 +1166,7 @@ const ProductForm = (props) => {
                                             )}
                                         />
                                     </div>
-                                    <div className="col-md-12 mb-3">
+                                    <div className="col-md-12 mb-3" id="field-supplier_id" data-field="supplier_id">
                                         <ReactSelect
                                             data={suppliers}
                                             onChange={onSupplierChange}
@@ -1151,7 +1183,7 @@ const ProductForm = (props) => {
                                         />
                                     </div>
 
-                                    <div className="col-md-12 mb-3">
+                                    <div className="col-md-12 mb-3" id="field-status_id" data-field="status_id">
                                         <ReactSelect
                                             multiLanguageOption={
                                                 statusFilterOptions
@@ -1174,7 +1206,7 @@ const ProductForm = (props) => {
                         </div>
                         {!singleProduct && (
                             <div className="row border-top pt-4">
-                                <div className="col-md-4 mb-3">
+                                <div className="col-md-4 mb-3" id="field-product_type" data-field="product_type">
                                     {!singleProduct ?
                                         <ReactSelect
                                             title={getFormattedMessage(
@@ -1205,7 +1237,7 @@ const ProductForm = (props) => {
                                 {typeof productValue.product_type !== "string" &&
                                     productValue.product_type?.value === 2 && (!singleProduct ?
                                         (
-                                            <div className="col-md-4 mb-3">
+                                            <div className="col-md-4 mb-3" id="field-variation" data-field="variation">
                                                 <ReactSelect
                                                     title={getFormattedMessage(
                                                         "variations.title"
@@ -1231,7 +1263,7 @@ const ProductForm = (props) => {
                                 {typeof productValue.product_type !== "string" &&
                                     productValue.product_type?.value === 2 &&
                                     typeof productValue.variation !== "string" && (
-                                        <div className="col-md-4 mb-3">
+                                        <div className="col-md-4 mb-3" id="field-variation_type" data-field="variation_type">
                                             <ReactMultiSelect
                                                 title={getFormattedMessage(
                                                     "variation.variation_types"
@@ -1387,7 +1419,7 @@ const ProductForm = (props) => {
                                             : null}
                                     </span>
                                 </div>
-                                <div className="col-md-3 mb-3">
+                                <div className="col-md-3 mb-3" id="field-tax_type" data-field="tax_type">
                                     <ReactSelect
                                         title={getFormattedMessage(
                                             "product.input.tax-type.label"

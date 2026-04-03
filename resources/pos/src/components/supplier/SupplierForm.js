@@ -6,6 +6,7 @@ import * as EmailValidator from 'email-validator';
 import {editSupplier} from '../../store/action/supplierAction';
 import {getFormattedMessage, placeholderText, numValidate} from '../../shared/sharedMethod';
 import ModelFooter from '../../shared/components/modelFooter';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const SupplierForm = (props) => {
     const {addSupplierData, id, editSupplier, singleSupplier} = props;
@@ -28,6 +29,7 @@ const SupplierForm = (props) => {
         city: '',
         address: ''
     });
+    useScrollToFirstError(errors);
 
     const disabled = singleSupplier && singleSupplier[0].name === supplierValue.name && singleSupplier[0].country === supplierValue.country && singleSupplier[0].city === supplierValue.city && singleSupplier[0].email === supplierValue.email && singleSupplier[0].address === supplierValue.address && singleSupplier[0].phone === supplierValue.phone
 

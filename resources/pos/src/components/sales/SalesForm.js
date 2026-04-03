@@ -17,6 +17,7 @@ import { addToast } from '../../store/action/toastAction';
 import { paymentMethodOptions, salePaymentStatusOptions, saleStatusOptions, statusOptions, toastType } from '../../constants';
 import { fetchFrontSetting } from '../../store/action/frontSettingAction';
 import ReactSelect from '../../shared/select/reactSelect';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const SalesForm = ( props ) => {
     const {
@@ -69,6 +70,7 @@ const SalesForm = ( props ) => {
         payment_status: '',
         payment_type: ''
     } );
+    useScrollToFirstError(errors);
 
     useEffect( () => {
         setUpdateProducts( updateProducts )

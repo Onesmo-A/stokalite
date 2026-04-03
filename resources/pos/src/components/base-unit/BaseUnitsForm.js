@@ -4,6 +4,7 @@ import { Form, Modal } from 'react-bootstrap-v5';
 import { getFormattedMessage, placeholderText } from "../../shared/sharedMethod";
 import { editBaseUnit, fetchBaseUnits, fetchBaseUnit } from '../../store/action/baseUnitsAction';
 import ModelFooter from '../../shared/components/modelFooter';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const BaseUnitsForm = ( props ) => {
     const { handleClose, show, title, addProductData, editBaseUnit, singleUnit } = props;
@@ -15,6 +16,7 @@ const BaseUnitsForm = ( props ) => {
     const [ errors, setErrors ] = useState( {
         name: ''
     } );
+    useScrollToFirstError(errors);
 
     const disabled = singleUnit && singleUnit.name === unitValue.name.trim()
 

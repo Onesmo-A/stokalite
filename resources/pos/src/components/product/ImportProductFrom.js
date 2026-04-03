@@ -5,6 +5,7 @@ import { editBrand, fetchBrand, fetchBrands } from '../../store/action/brandsAct
 import { getFormattedMessage } from '../../shared/sharedMethod';
 import { placeholderText } from '../../shared/sharedMethod';
 import { addToast } from '../../store/action/toastAction';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const ImportProductFrom = ( props ) => {
     const { handleClose, show, title, addImportData, link } = props;
@@ -12,6 +13,7 @@ const ImportProductFrom = ( props ) => {
         file: ''
     } );
     const [ errors, setErrors ] = useState( { name: '' } );
+    useScrollToFirstError(errors);
     const [ selectFile, setSelectFile ] = useState( null );
     const dispatch = useDispatch()
 

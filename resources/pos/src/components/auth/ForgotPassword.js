@@ -7,6 +7,7 @@ import { fetchFrontSetting } from '../../store/action/frontSettingAction';
 import { getFormattedMessage, placeholderText } from '../../shared/sharedMethod';
 import { Image } from "react-bootstrap-v5";
 import { Link } from 'react-router-dom';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const ForgotPassword = () => {
     const { loginUser, frontSetting } = useSelector(state => state)
@@ -14,6 +15,7 @@ const ForgotPassword = () => {
     const Dispatch = useDispatch()
     const [forgotValue, setForgotValue] = useState({ email: '' });
     const [errors, setErrors] = useState({ email: '' });
+    useScrollToFirstError(errors);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {

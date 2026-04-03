@@ -4,6 +4,7 @@ import {Form, Modal} from 'react-bootstrap-v5';
 import {getFormattedMessage, placeholderText} from '../../shared/sharedMethod';
 import {editExpenseCategory} from '../../store/action/expenseCategoryAction';
 import ModelFooter from '../../shared/components/modelFooter';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const ExpenseCategoryForm = (props) => {
     const {handleClose, show, title, addExpenseData, editExpenseCategory, singleExpenseCategory} = props;
@@ -14,6 +15,7 @@ const ExpenseCategoryForm = (props) => {
     const [errors, setErrors] = useState({
         name: '',
     });
+    useScrollToFirstError(errors);
 
     const disabled = singleExpenseCategory && singleExpenseCategory.name === expenseCategoryValue.name.trim();
 

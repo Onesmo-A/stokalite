@@ -12,6 +12,7 @@ import {
     getFormattedMessage,
     placeholderText,
 } from "../../shared/sharedMethod";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -37,6 +38,7 @@ const Login = () => {
         email: "",
         password: "",
     });
+    useScrollToFirstError(errors);
 
     const handleValidation = () => {
         let errorss = {};

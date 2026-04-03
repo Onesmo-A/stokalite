@@ -9,6 +9,7 @@ import { editExpense } from '../../store/action/expenseAction';
 import ModelFooter from '../../shared/components/modelFooter';
 import ReactSelect from '../../shared/select/reactSelect';
 import ReactDatePicker from '../../shared/datepicker/ReactDatePicker';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const ExpenseForm = ( props ) => {
     const { addExpenseData, id, editExpense, singleExpense, warehouses, expenseCategories, frontSetting } = props;
@@ -25,6 +26,7 @@ const ExpenseForm = ( props ) => {
     const [ errors, setErrors ] = useState( {
         date: '', title: '', warehouse_id: '', expense_category_id: '', amount: '', details: ''
     } );
+    useScrollToFirstError(errors);
     const [ selectedWarehouse ] = useState( singleExpense ? ( [ {
         label: singleExpense[ 0 ].warehouse_id.label, value: singleExpense[ 0 ].warehouse_id.value
     } ] ) : null );

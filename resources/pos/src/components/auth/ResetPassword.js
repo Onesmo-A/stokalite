@@ -6,6 +6,7 @@ import {resetPassword} from '../../store/action/authAction';
 import {fetchFrontSetting} from '../../store/action/frontSettingAction';
 import {getFormattedMessage, placeholderText} from '../../shared/sharedMethod';
 import {Image} from 'react-bootstrap-v5';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const ResetPassword = (props) => {
     const {resetPassword, fetchFrontSetting, frontSetting} = props
@@ -22,6 +23,7 @@ const ResetPassword = (props) => {
         password: '',
         password_confirmation: '',
     });
+    useScrollToFirstError(errors);
 
     useEffect(() => {
         fetchFrontSetting();

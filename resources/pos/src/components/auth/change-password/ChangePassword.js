@@ -3,6 +3,7 @@ import {Form, Modal} from 'react-bootstrap-v5';
 import {connect} from 'react-redux';
 import {onChangePassword} from '../../../store/action/changePasswordAction';
 import {getFormattedMessage, placeholderText} from '../../../shared/sharedMethod';
+import useScrollToFirstError from "../../../shared/hooks/useScrollToFirstError";
 
 const ChangePassword = (props) => {
     const {deleteModel, onClickDeleteModel, onChangePassword} = props;
@@ -17,6 +18,7 @@ const ChangePassword = (props) => {
         new_password: '',
         confirm_password: ''
     });
+    useScrollToFirstError(errors);
 
     const handleChangePassword = (e) => {
         setPasswordInputs(inputs => ({...inputs, [e.target.name]: e.target.value}));

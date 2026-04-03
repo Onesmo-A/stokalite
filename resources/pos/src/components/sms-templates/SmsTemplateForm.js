@@ -6,6 +6,7 @@ import { getFormattedMessage, placeholderText } from '../../shared/sharedMethod'
 import ModelFooter from '../../shared/components/modelFooter';
 import 'react-quill/dist/quill.snow.css';
 import { UpdateSmsTemplate } from "../../store/action/smsTemplatesAction";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const SmsTemplateForm = ( props ) => {
     const { id, singleSMSTemplate, UpdateSmsTemplate } = props;
@@ -20,6 +21,7 @@ const SmsTemplateForm = ( props ) => {
         name: '',
         content: ""
     } );
+    useScrollToFirstError(errors);
 
     const disabled = singleSMSTemplate && singleSMSTemplate[ 0 ].content === smsTemplateValue.content
 

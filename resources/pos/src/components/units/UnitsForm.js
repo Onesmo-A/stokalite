@@ -6,6 +6,7 @@ import {editUnit} from '../../store/action/unitsAction';
 import ModelFooter from '../../shared/components/modelFooter';
 import ReactSelect from '../../shared/select/reactSelect';
 import {fetchAllBaseUnits} from "../../store/action/baseUnitsAction";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const UnitsForm = (props) => {
     const {handleClose, base, fetchAllBaseUnits, show, title, addProductData, editUnit, singleUnit,hide, product_unit} = props;
@@ -22,6 +23,7 @@ const UnitsForm = (props) => {
         short_name: '',
         base_unit: ''
     });
+    useScrollToFirstError(errors);
 
     useEffect(() => {
         fetchAllBaseUnits()

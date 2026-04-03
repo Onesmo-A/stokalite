@@ -6,6 +6,7 @@ import * as EmailValidator from 'email-validator';
 import {getFormattedMessage, numValidate, placeholderText} from '../../shared/sharedMethod';
 import {editWarehouse, fetchWarehouse} from '../../store/action/warehouseAction';
 import ModelFooter from '../../shared/components/modelFooter';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const WarehouseForm = (props) => {
     const {addWarehouseData, id, editWarehouse, singleWarehouse} = props;
@@ -28,6 +29,7 @@ const WarehouseForm = (props) => {
         city: '',
         zip_code: ''
     });
+    useScrollToFirstError(errors);
 
     const disabled = singleWarehouse && singleWarehouse[0].name === warehouseValue.name && singleWarehouse[0].phone === warehouseValue.phone && singleWarehouse[0].country === warehouseValue.country && singleWarehouse[0].city === warehouseValue.city && singleWarehouse[0].email === warehouseValue.email && singleWarehouse[0].zip_code === warehouseValue.zip_code
 

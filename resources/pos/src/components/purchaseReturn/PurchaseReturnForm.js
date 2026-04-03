@@ -17,6 +17,7 @@ import { saleStatusOptions, toastType } from '../../constants';
 import ReactDatePicker from '../../shared/datepicker/ReactDatePicker';
 import ProductMainCalculation from '../sales/ProductMainCalculation';
 import ReactSelect from '../../shared/select/reactSelect';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const PurchaseReturnForm = ( props ) => {
     const { addPurchaseReturnData, id, editPurchaseReturn, customProducts, singlePurchase, warehouses, suppliers,
@@ -55,6 +56,7 @@ const PurchaseReturnForm = ( props ) => {
         shipping: '',
         status_id: ''
     } );
+    useScrollToFirstError(errors);
 
     useEffect( () => {
         setUpdateProducts( updateProducts );

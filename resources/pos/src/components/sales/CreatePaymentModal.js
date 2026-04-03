@@ -14,6 +14,7 @@ import ReactSelect from "../../shared/select/reactSelect";
 import ModelFooter from "../../shared/components/modelFooter";
 import { useDispatch } from "react-redux";
 import { createSalePayment } from "../../store/action/salePaymentAction";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const CreatePaymentModal = (props) => {
     const {
@@ -78,6 +79,7 @@ const CreatePaymentModal = (props) => {
     const [errors, setErrors] = useState({
         amount: "",
     });
+    useScrollToFirstError(errors);
 
     const handleValidation = () => {
         let error = {};

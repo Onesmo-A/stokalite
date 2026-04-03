@@ -7,6 +7,7 @@ import ModelFooter from '../../shared/components/modelFooter';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import {UpdateEmailTemplate} from "../../store/action/emailTemplatesAction";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const EmailTemplateForm = (props) => {
     const {id, singleEmailTemplate, UpdateEmailTemplate} = props;
@@ -21,6 +22,7 @@ const EmailTemplateForm = (props) => {
         name: '',
         content: ""
     });
+    useScrollToFirstError(errors);
 
     const disabled = singleEmailTemplate && singleEmailTemplate[0].content === emailTemplateValue.content
 

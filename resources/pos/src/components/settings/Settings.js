@@ -24,6 +24,7 @@ import ReactSelect from "../../shared/select/reactSelect";
 import HeaderTitle from "../header/HeaderTitle";
 import TopProgressBar from "../../shared/components/loaders/TopProgressBar";
 import dateFormatOptions from "./dateFormatOptions.json";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const Settings = (props) => {
     const {
@@ -117,6 +118,7 @@ const Settings = (props) => {
         date_format: "",
         Currency_icon_Right_side: "",
     });
+    useScrollToFirstError(errors);
 
     const [disable, setDisable] = React.useState(true);
     const [checked, setChecked] = useState(false);

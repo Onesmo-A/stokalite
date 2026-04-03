@@ -21,6 +21,7 @@ import { faMoneyBill, faWallet, faCreditCard } from '@fortawesome/free-solid-svg
 import ProductSearch from "../../shared/components/product-cart/search/ProductSearch";
 import TopProgressBar from "../../shared/components/loaders/TopProgressBar";
 import { fetchFrontSetting } from "../../store/action/frontSettingAction";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const PrintBarcode = () => {
     const { warehouses, products, purchaseProducts, frontSetting, allConfigData, customProducts = preparePurchaseProductArray( products, true ) } = useSelector( state => state )
@@ -41,6 +42,7 @@ const PrintBarcode = () => {
         warehouse_id: '',
         paperSizeValue: ''
     } );
+    useScrollToFirstError(errors);
     const [ updated, setUpdated ] = useState( false );
     const componentRef = useRef();
     const dispatch = useDispatch();

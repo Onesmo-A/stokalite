@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import ReactSelect from "../../shared/select/reactSelect";
 import { editProduct } from "../../store/action/productAction";
 import { useNavigate } from "react-router";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const EditSubProductModal = (props) => {
 
@@ -21,6 +22,7 @@ const EditSubProductModal = (props) => {
         tax_type: "",
     });
     const [errors, setErrors] = useState({});
+    useScrollToFirstError(errors);
     const taxTypeFilterOptions = getFormattedOptions(taxMethodOptions);
 
     const dispatch = useDispatch();

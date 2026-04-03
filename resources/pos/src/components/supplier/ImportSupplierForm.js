@@ -4,6 +4,7 @@ import { Form, Modal } from 'react-bootstrap-v5';
 import { getFormattedMessage } from '../../shared/sharedMethod';
 import { placeholderText } from '../../shared/sharedMethod';
 import { addToast } from '../../store/action/toastAction';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const ImportSupplierForm = ( props ) => {
     const { handleClose, show, title, addImportData } = props;
@@ -11,6 +12,7 @@ const ImportSupplierForm = ( props ) => {
         file: ''
     } );
     const [ errors, setErrors ] = useState( { name: '' } );
+    useScrollToFirstError(errors);
     const [ selectFile, setSelectFile ] = useState( null );
     const dispatch = useDispatch()
 

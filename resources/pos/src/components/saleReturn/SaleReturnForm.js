@@ -26,6 +26,7 @@ import { addToast } from "../../store/action/toastAction";
 import { toastType } from "../../constants";
 import { saleReturnStatusOptions } from "../../constants";
 import ReactSelect from "../../shared/select/reactSelect";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const SaleReturnForm = (props) => {
     const {
@@ -71,6 +72,7 @@ const SaleReturnForm = (props) => {
         warehouse_id: "",
         status: "",
     });
+    useScrollToFirstError(errors);
 
     useEffect(() => {
         setUpdateProducts(updateProducts);

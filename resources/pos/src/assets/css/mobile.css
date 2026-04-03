@@ -108,10 +108,13 @@
     }
 }
 
-
 /* POS mobile bottom-sheet cart */
+:root {
+    --pos-cart-height: 52vh;
+}
+
 .pos-screen--mobile .pos-right-scs {
-    padding-bottom: calc(52vh + 16px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(var(--pos-cart-height) + 16px + env(safe-area-inset-bottom, 0px));
 }
 
 .pos-screen--mobile .pos-cart-col {
@@ -119,21 +122,32 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: calc(52vh + env(safe-area-inset-bottom, 0px));
+    height: calc(var(--pos-cart-height) + env(safe-area-inset-bottom, 0px));
     z-index: 1020;
 }
 
 .pos-screen--mobile .pos-cart-panel {
-    height: 52vh;
-    display: flex;
+    height: var(--pos-cart-height) !important;
+    max-height: var(--pos-cart-height) !important;
+    display: flex !important;
     flex-direction: column;
+    overflow: hidden !important;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.14);
 }
 
+/* Ensure legacy table sizing doesn't break flex layout */
+.pos-screen--mobile .pos-cart-panel .main-table {
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+}
+
+/* Only the items list scrolls */
 .pos-screen--mobile .pos-cart-items {
-    flex: 1 1 auto;
+    flex: 1 1 0;
+    min-height: 0 !important;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -173,6 +187,7 @@
 
 .pos-screen--mobile .pos-cart-totals {
     margin-top: 0.5rem !important;
+    flex: 0 0 auto;
 }
 
 .pos-screen--mobile .pos-cart-totals .fs-3 {
@@ -184,8 +199,10 @@
 }
 
 .pos-screen--mobile .pos-payment-actions {
+    flex: 0 0 auto;
     gap: 8px;
     flex-wrap: wrap;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
 }
 
 .pos-screen--mobile .pos-payment-actions .pos-pay-btn {
@@ -202,39 +219,39 @@
     padding-top: 0.5rem !important;
     padding-bottom: 0.5rem !important;
 }
-
-
-/* Keep Pay button visible: only items scroll */
-.pos-screen--mobile .pos-cart-panel {
-    min-height: 0;
-    overflow: hidden;
+/* POS cart adjustments toggle (mobile) */
+.pos-screen--mobile .pos-cart-adjustments-mobile {
+    margin-top: 6px;
 }
 
-.pos-screen--mobile .pos-cart-items {
-    flex: 1 1 0;
-    min-height: 0;
+.pos-screen--mobile .pos-cart-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.pos-screen--mobile .pos-cart-totals,
-.pos-screen--mobile .pos-payment-actions {
-    flex: 0 0 auto;
+.pos-screen--mobile .pos-cart-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border: 1px solid #e5e7eb;
+    background: #f8fafc;
+    color: #374151;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    line-height: 1;
 }
 
-
-/* Sticky Pay actions (prevents items area collapsing to 0) */
-.pos-screen--mobile .pos-cart-panel {
-    overflow: auto;
+.pos-screen--mobile .pos-cart-chip i {
+    font-size: 1rem;
 }
 
-.pos-screen--mobile .pos-cart-items {
-    flex: 0 0 auto;
-    min-height: 140px;
+.pos-screen--mobile .pos-cart-adjust-btn {
+    border-radius: 12px;
+    padding: 6px 10px;
 }
 
-.pos-screen--mobile .pos-payment-actions {
-    position: sticky;
-    bottom: 0;
-    background: #fff;
-    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
-    margin-top: 8px;
+.pos-screen--mobile .pos-cart-adjustments-fields .form-control {
+    font-size: 0.95rem;
 }

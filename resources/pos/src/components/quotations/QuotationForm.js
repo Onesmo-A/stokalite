@@ -18,6 +18,7 @@ import { quotationStatusOptions, toastType } from '../../constants';
 import { fetchFrontSetting } from '../../store/action/frontSettingAction';
 import ReactSelect from '../../shared/select/reactSelect';
 import { editQuotation } from '../../store/action/quotationAction';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const QuotationForm = ( props ) => {
     const {
@@ -65,6 +66,7 @@ const QuotationForm = ( props ) => {
         warehouse_id: '',
         status_id: ''
     } );
+    useScrollToFirstError(errors);
 
     useEffect( () => {
         setUpdateProducts( updateProducts )

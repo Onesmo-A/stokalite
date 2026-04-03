@@ -10,6 +10,7 @@ import TabTitle from '../../shared/tab-title/TabTitle';
 import {getAvatarName, getFormattedMessage, numValidate, placeholderText} from '../../shared/sharedMethod';
 import user from '../../assets/images/avatar.png';
 import TopProgressBar from "../../shared/components/loaders/TopProgressBar";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const UpdateProfile = () => {
     const { userProfile } = useSelector(state => state)
@@ -30,6 +31,7 @@ const UpdateProfile = () => {
         email: '',
         phone: '',
     });
+    useScrollToFirstError(errors);
 
     const avtarName = getAvatarName(userProfile && userProfile.attributes && userProfile.attributes.image === '' && userProfile.attributes.last_name && userProfile.attributes.first_name + ' ' + userProfile.attributes.last_name);
     const newImg = userProfile && userProfile.attributes && userProfile.attributes.image === null && avtarName;

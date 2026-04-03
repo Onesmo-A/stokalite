@@ -14,6 +14,7 @@ import { addToast } from '../../store/action/toastAction';
 import { toastType } from '../../constants';
 import { fetchFrontSetting } from '../../store/action/frontSettingAction';
 import ReactSelect from '../../shared/select/reactSelect';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const AdjustmentForm = ( props ) => {
     const {
@@ -44,6 +45,7 @@ const AdjustmentForm = ( props ) => {
         warehouse_id: '',
         AdjustmentType: ''
     } );
+    useScrollToFirstError(errors);
 
     useEffect( () => {
         setUpdateProducts( updateProducts )

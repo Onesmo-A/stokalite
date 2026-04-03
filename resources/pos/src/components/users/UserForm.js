@@ -10,6 +10,7 @@ import user from '../../assets/images/avatar.png';
 import ModelFooter from '../../shared/components/modelFooter';
 import ReactSelect from "../../shared/select/reactSelect";
 import {fetchAllRoles} from "../../store/action/roleAction";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 
 const UserForm = (props) => {
@@ -36,6 +37,7 @@ const UserForm = (props) => {
         confirm_password: '',
         role_id: '',
     });
+    useScrollToFirstError(errors);
 
     const avatarName = getAvatarName(singleUser && singleUser[0].image === '' && singleUser[0].first_name && singleUser[0].last_name && singleUser[0].first_name + ' ' + singleUser[0].last_name)
     const newImg = singleUser && singleUser[0].image && singleUser[0].image === null && avatarName;

@@ -14,6 +14,7 @@ import ReactSelect from "../../shared/select/reactSelect";
 import ModelFooter from "../../shared/components/modelFooter";
 import { useDispatch } from "react-redux";
 import { editSalePayment } from "../../store/action/salePaymentAction";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const EditPaymentModal = ( props ) => {
     const { editSaleItem, isEditModalOpen, closeModal, createPaymentItem } = props;
@@ -74,6 +75,7 @@ const EditPaymentModal = ( props ) => {
     const [ errors, setErrors ] = useState( {
         amount: '',
     } );
+    useScrollToFirstError(errors);
 
     const handleValidation = () => {
         let errorss = {};

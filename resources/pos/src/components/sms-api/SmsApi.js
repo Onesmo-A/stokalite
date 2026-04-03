@@ -5,6 +5,7 @@ import ModelFooter from '../../shared/components/modelFooter';
 import MasterLayout from "../MasterLayout";
 import { fetchSmsApiSetting, updateSmsApiSetting } from '../../store/action/SmsApiAction';
 import TabTitle from "../../shared/tab-title/TabTitle";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const SmsApi = ( props ) => {
     const { smsApiData, fetchSmsApiSetting, updateSmsApiSetting } = props;
@@ -16,6 +17,7 @@ const SmsApi = ( props ) => {
 
     const [ smsValue, setSmsValue ] = useState( [ { key: "", value: "" } ] );
     const [ errors, setErrors ] = useState( smsValue.length !== 1 && smsValue );
+    useScrollToFirstError(errors);
 
     useEffect( () => {
         if ( smsApiData.attributes ) {

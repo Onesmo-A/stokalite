@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 import {editRole} from '../../store/action/roleAction';
 import {getFormattedMessage, placeholderText} from "../../shared/sharedMethod";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const RoleForm = (props) => {
     const {addRolesData, singleRole, editRole, permissionsArray, id} = props;
@@ -20,6 +21,7 @@ const RoleForm = (props) => {
         name: '',
         permissions: ''
     });
+    useScrollToFirstError(errors);
 
     useEffect(()=> {
         setRolesValue(

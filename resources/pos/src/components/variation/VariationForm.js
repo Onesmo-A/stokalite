@@ -12,6 +12,7 @@ import {
     createVariation,
     updateVariation,
 } from "../../store/action/variationAction";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const VariationForm = (props) => {
     const { handleClose, show, title, singleVariation } = props;
@@ -30,6 +31,7 @@ const VariationForm = (props) => {
         name: "",
         variation_types: "",
     });
+    useScrollToFirstError(errors);
 
     useEffect(() => {
         if (singleVariation) {

@@ -8,6 +8,7 @@ import HeaderTitle from "../header/HeaderTitle";
 import TopProgressBar from "../../shared/components/loaders/TopProgressBar";
 import Spinner from "../../shared/components/loaders/Spinner";
 import {editMailSettings, fetchMailSettings} from "../../store/action/mailSettingsAction";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const MailSettings = (props) => {
     const {fetchMailSettings, editMailSettings, isLoading, mailSettingsData} = props;
@@ -33,6 +34,7 @@ const MailSettings = (props) => {
     })
 
     const [disable, setDisable] = React.useState(true);
+    useScrollToFirstError(errors);
 
     useEffect(() => {
         fetchMailSettings();

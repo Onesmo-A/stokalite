@@ -11,6 +11,7 @@ import { getFormattedMessage, placeholderText } from '../../shared/sharedMethod'
 import HeaderTitle from "../header/HeaderTitle";
 import TopProgressBar from "../../shared/components/loaders/TopProgressBar";
 import Spinner from "../../shared/components/loaders/Spinner";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const Prefixes = ( props ) => {
     const {
@@ -40,6 +41,7 @@ const Prefixes = ( props ) => {
     } )
 
     const [ disable, setDisable ] = React.useState( true );
+    useScrollToFirstError(errors);
 
     useEffect( () => {
         fetchSetting();

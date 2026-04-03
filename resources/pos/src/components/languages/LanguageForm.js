@@ -4,6 +4,7 @@ import { Form, Modal } from 'react-bootstrap-v5';
 import { getFormattedMessage, placeholderText } from "../../shared/sharedMethod";
 import { editLanguage, fetchLanguages, fetchLanguage } from '../../store/action/languageAction';
 import ModelFooter from '../../shared/components/modelFooter';
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const LanguageForm = ( props ) => {
     const { handleClose, show, title, singleLanguage, addLanguageData, editLanguage } = props;
@@ -16,6 +17,7 @@ const LanguageForm = ( props ) => {
         name: '',
         iso_code: ''
     } );
+    useScrollToFirstError(errors);
 
     const disabled = singleLanguage && singleLanguage.name === languageValue.name.trim() && singleLanguage.iso_code === languageValue.iso_code
 

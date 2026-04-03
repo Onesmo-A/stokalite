@@ -12,6 +12,7 @@ import { editCustomer } from "../../store/action/customerAction";
 import ModelFooter from "../../shared/components/modelFooter";
 import ReactDatePicker from "../../shared/datepicker/ReactDatePicker";
 import moment from "moment";
+import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const CustomerForm = (props) => {
     const { addCustomerData, id, editCustomer, singleCustomer } = props;
@@ -40,6 +41,7 @@ const CustomerForm = (props) => {
         city: "",
         address: "",
     });
+    useScrollToFirstError(errors);
 
     const disabled =
         singleCustomer &&
