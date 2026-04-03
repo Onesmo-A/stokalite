@@ -1,0 +1,240 @@
+﻿/* Responsive + app-feel tweaks */
+
+/* POS scan button (desktop + mobile) */
+.pos-screen .pos-scan-btn {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    bottom: 6px;
+    z-index: 1001;
+    border-radius: 12px;
+    padding: 0 12px;
+}
+
+.pos-screen .search-bar input[data-test="search-input"] {
+    padding-right: 56px !important;
+}
+
+.pos-camera-wrap {
+    position: relative;
+    width: 100%;
+    background: #000;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+}
+
+.pos-camera-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pos-camera-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+        background: #fff;
+    }
+
+    .content {
+        padding-top: 12px !important;
+    }
+
+    /* POS */
+    .pos-screen {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    .pos-screen .left-content {
+        height: auto !important;
+    }
+
+    .pos-screen .left-content .main-table {
+        min-height: unset !important;
+        max-height: 45vh;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pos-screen .right-content {
+        margin-top: 8px;
+    }
+
+    .pos-screen .react-search-icon {
+        pointer-events: none;
+    }
+
+    /* Allow wrapping on small screens */
+    .table .text-nowrap {
+        white-space: normal !important;
+    }
+}
+
+/* Camera modal layout */
+.pos-camera-modal .modal-body {
+    padding: 12px;
+}
+
+.pos-camera-dialog {
+    max-width: 720px;
+}
+
+@media (max-width: 768px) {
+    .pos-camera-dialog {
+        max-width: none;
+        margin: 0;
+    }
+
+    .pos-camera-modal .modal-content {
+        border-radius: 0;
+    }
+}
+
+
+/* POS mobile bottom-sheet cart */
+.pos-screen--mobile .pos-right-scs {
+    padding-bottom: calc(52vh + 16px + env(safe-area-inset-bottom, 0px));
+}
+
+.pos-screen--mobile .pos-cart-col {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(52vh + env(safe-area-inset-bottom, 0px));
+    z-index: 1020;
+}
+
+.pos-screen--mobile .pos-cart-panel {
+    height: 52vh;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.14);
+}
+
+.pos-screen--mobile .pos-cart-items {
+    flex: 1 1 auto;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.pos-screen--mobile .pos-cart-table th,
+.pos-screen--mobile .pos-cart-table td {
+    padding: 0.35rem 0.4rem;
+    font-size: 0.9rem;
+}
+
+.pos-screen--mobile .pos-cart-table thead th:nth-child(3),
+.pos-screen--mobile .pos-cart-table tbody td:nth-child(3) {
+    display: none;
+}
+
+.pos-screen--mobile .pos-cart-table .product-name {
+    font-size: 0.95rem;
+    line-height: 1.2;
+    margin-bottom: 2px;
+}
+
+.pos-screen--mobile .pos-cart-table .product-sku {
+    display: none;
+}
+
+.pos-screen--mobile .pos-custom-qty .btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 10px;
+}
+
+.pos-screen--mobile .pos-custom-qty input {
+    width: 56px;
+    font-size: 0.95rem;
+}
+
+.pos-screen--mobile .pos-cart-totals {
+    margin-top: 0.5rem !important;
+}
+
+.pos-screen--mobile .pos-cart-totals .fs-3 {
+    font-size: 0.95rem !important;
+}
+
+.pos-screen--mobile .pos-cart-totals .fs-1 {
+    font-size: 1.15rem !important;
+}
+
+.pos-screen--mobile .pos-payment-actions {
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pos-screen--mobile .pos-payment-actions .pos-pay-btn {
+    flex: 1 0 100%;
+    order: 3;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+}
+
+.pos-screen--mobile .pos-payment-actions .bg-btn-pink,
+.pos-screen--mobile .pos-payment-actions .btn-danger {
+    flex: 1 1 0;
+    order: 1;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+
+/* Keep Pay button visible: only items scroll */
+.pos-screen--mobile .pos-cart-panel {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.pos-screen--mobile .pos-cart-items {
+    flex: 1 1 0;
+    min-height: 0;
+}
+
+.pos-screen--mobile .pos-cart-totals,
+.pos-screen--mobile .pos-payment-actions {
+    flex: 0 0 auto;
+}
+
+
+/* Sticky Pay actions (prevents items area collapsing to 0) */
+.pos-screen--mobile .pos-cart-panel {
+    overflow: auto;
+}
+
+.pos-screen--mobile .pos-cart-items {
+    flex: 0 0 auto;
+    min-height: 140px;
+}
+
+.pos-screen--mobile .pos-payment-actions {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    margin-top: 8px;
+}
