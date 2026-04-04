@@ -1,0 +1,14 @@
+﻿.git
+node_modules
+vendor
+storage/*.key
+storage/logs
+storage/framework/cache
+storage/framework/sessions
+storage/framework/views
+storage/app/public
+public/hot
+.env
+.env.*
+*.png
+*.log
