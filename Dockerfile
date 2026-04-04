@@ -4,7 +4,7 @@
 FROM node:20-alpine AS js
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install --legacy-peer-deps --no-audit --no-fund
 COPY resources ./resources
 COPY webpack.mix.js webpack-rtl.config.js .
 RUN mkdir -p public
@@ -60,3 +60,4 @@ RUN chmod +x /start.sh \
 EXPOSE 10000
 
 CMD ["/start.sh"]
+
