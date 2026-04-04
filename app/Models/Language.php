@@ -41,8 +41,7 @@ class Language extends BaseModel implements JsonResourceful
      */
     protected $fillable = [
         'name',
-        'iso_code',
-    ];
+        'iso_code',\n        'is_default',\n    ];
 
     /**
      * @var array
@@ -57,7 +56,7 @@ class Language extends BaseModel implements JsonResourceful
      */
     public $casts = [
         'name' => 'string',
-        'iso_code' => 'string',
+        'iso_code' => 'string',\n        'is_default' => 'boolean',
     ];
 
     public function prepareLinks(): array

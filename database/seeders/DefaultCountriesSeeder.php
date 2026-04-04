@@ -13,6 +13,11 @@ class DefaultCountriesSeeder extends Seeder
      */
     public function run(): void
     {
+        // Avoid duplicate inserts on re-run
+        if (Country::query()->exists() || State::query()->exists()) {
+            return;
+        }
+
         $countries = file_get_contents(storage_path('countries/countries.json'));
         $countries = json_decode($countries, true)['countries'];
         Country::insert($countries);

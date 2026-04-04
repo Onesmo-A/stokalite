@@ -13,12 +13,13 @@ class DefaultBaseUnitSeeder extends Seeder
     public function run(): void
     {
         $baseUnits = [
-            ['id' => 1, 'name' => 'piece'],
-            ['id' => 2, 'name' => 'meter'],
-            ['id' => 3, 'name' => 'kilogram'],
+            ['name' => 'piece'],
+            ['name' => 'meter'],
+            ['name' => 'kilogram'],
         ];
+
         foreach ($baseUnits as $baseUnit) {
-            BaseUnit::create($baseUnit);
+            BaseUnit::firstOrCreate(['name' => $baseUnit['name']], $baseUnit);
         }
     }
 }

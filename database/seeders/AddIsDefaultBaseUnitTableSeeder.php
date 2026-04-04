@@ -12,8 +12,10 @@ class AddIsDefaultBaseUnitTableSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 3; $i++) {
-            $baseUnit = BaseUnit::whereId($i)->first();
+        $names = ['piece', 'meter', 'kilogram'];
+
+        foreach ($names as $name) {
+            $baseUnit = BaseUnit::whereName($name)->first();
             if (! empty($baseUnit)) {
                 $baseUnit->update([
                     'is_default' => true,

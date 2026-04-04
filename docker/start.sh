@@ -43,6 +43,11 @@ if [ -f /var/www/html/artisan ]; then
     php /var/www/html/artisan migrate --force
   fi
 
+  # Optional: only enable for first boot
+  if [ "${RUN_SEEDERS:-false}" = "true" ]; then
+    php /var/www/html/artisan db:seed --force
+  fi
+
   php /var/www/html/artisan package:discover --ansi || true
   php /var/www/html/artisan config:cache || true
   php /var/www/html/artisan route:cache || true
