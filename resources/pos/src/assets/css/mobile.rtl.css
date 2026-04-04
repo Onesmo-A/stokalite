@@ -255,3 +255,50 @@
 .pos-screen--mobile .pos-cart-adjustments-fields .form-control {
     font-size: 0.95rem;
 }
+/* Product code scan button */
+.product-code-scan-btn {
+    background: #6571ff;
+    border-color: #6571ff;
+    color: #fff;
+}
+
+.product-code-scan-btn:hover,
+.product-code-scan-btn:active,
+.product-code-scan-btn:focus {
+    background: #4f5bff;
+    border-color: #4f5bff;
+    color: #fff;
+}
+.product-code-scan-btn {
+    background: #6571ff;
+    border-color: #6571ff;
+    color: #fff;
+}
+
+.product-code-scan-btn:hover,
+.product-code-scan-btn:focus {
+    background: #4c59ff;
+    border-color: #4c59ff;
+    color: #fff;
+}
+
+.product-code-scan-btn:active {
+    background: #3f4cff;
+    border-color: #3f4cff;
+    color: #fff;
+}
+/* POS register dropdown (mobile) */
+@media (max-width: 768px) {
+    .pos-screen--mobile .pos-register-dropdown-menu.dropdown-menu.show {
+        position: fixed !important;
+        left: 12px !important;
+        right: 12px !important;
+        top: 86px !important;
+        bottom: auto !important;
+        width: auto !important;
+        max-width: none !important;
+        transform: none !important;
+        inset: auto !important;
+        z-index: 2000;
+    }
+}

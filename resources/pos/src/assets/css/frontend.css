@@ -863,7 +863,8 @@
 }
 
 .registerModel-content .modal-content {
-  width: 110%;
+  width: 100%;
+  max-width: 100%;
 }
 @media (max-width: 575px) {
   .registerModel-content .modal-content {

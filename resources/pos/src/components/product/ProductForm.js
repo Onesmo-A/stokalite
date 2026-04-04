@@ -34,6 +34,7 @@ import { addUnit } from "../../store/action/unitsAction";
 import { fetchAllVariations } from "../../store/action/variationAction";
 import ReactMultiSelect from "../../shared/select/ReactMultiSelect";
 import { toUpper } from "lodash";
+import CameraBarcodeScannerModal from "../../frontend/shared/CameraBarcodeScannerModal";
 import useScrollToFirstError from "../../shared/hooks/useScrollToFirstError";
 
 const ProductForm = (props) => {
@@ -102,6 +103,7 @@ const ProductForm = (props) => {
     const [isDropdown, setIsDropdown] = useState(true);
     const [multipleFiles, setMultipleFiles] = useState([]);
     const [errors, setErrors] = useState({});
+    const [showCodeScanner, setShowCodeScanner] = useState(false);
     useScrollToFirstError(errors);
 
     useEffect(() => {
@@ -702,6 +704,14 @@ const ProductForm = (props) => {
         setErrors({});
     };
 
+    const onDetectedProductCode = (value) => {
+        const clean = (value || "").trim();
+        if (!clean) return;
+        setProductValue((prev) => ({ ...prev, code: clean }));
+        setErrors({});
+        setShowCodeScanner(false);
+    };
+
     const onChangeVariationTypesData = (e, variation_type_id) => {
         setErrors({});
         setVariationTypesData((prev) =>
@@ -922,7 +932,8 @@ const ProductForm = (props) => {
                                             :{" "}
                                         </label>
                                         <span className="required" />
-                                        <input
+                                        <InputGroup className="flex-nowrap">
+                                            <input
                                             type="text"
                                             name="code"
                                             className={`form-control ${errors["code"] ? "is-invalid" : ""}`}
@@ -932,6 +943,15 @@ const ProductForm = (props) => {
                                             onChange={(e) => onChangeInput(e)}
                                             value={productValue.code}
                                         />
+                                            <Button
+                                                type="button"
+                                                variant="outline-secondary"
+                                                className="product-code-scan-btn"
+                                                onClick={() => setShowCodeScanner(true)}
+                                            >
+                                                <i className="bi bi-camera" />
+                                            </Button>
+                                        </InputGroup>
                                         <span className="text-danger d-block fw-400 fs-small mt-2">
                                             {errors["code"]
                                                 ? errors["code"]
@@ -1739,6 +1759,12 @@ const ProductForm = (props) => {
                     hide={setUnitModel}
                 />
             )}
+            <CameraBarcodeScannerModal
+                show={showCodeScanner}
+                onHide={() => setShowCodeScanner(false)}
+                onDetected={onDetectedProductCode}
+                title="Scan barcode"
+            />
         </div>
     );
 };

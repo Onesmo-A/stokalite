@@ -1,4 +1,4 @@
-import { faList } from '@fortawesome/free-solid-svg-icons';
+﻿import { faList } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Nav } from 'react-bootstrap-v5';
@@ -51,7 +51,7 @@ const HeaderAllButton = ( props ) => {
                                 <i className="bi bi-bag fa-2x" />
                             </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
+                            <Dropdown.Menu className="pos-register-dropdown-menu">
                                 <Dropdown.Item onClick={( e ) => {
                                     e.stopPropagation();
                                     goToDetailScreen()
@@ -91,3 +91,4 @@ const HeaderAllButton = ( props ) => {
 };
 
 export default HeaderAllButton;
+
