@@ -27,6 +27,8 @@ if [ -f /var/www/html/artisan ]; then
     php /var/www/html/artisan migrate --force
   fi
 
+  php /var/www/html/artisan package:discover --ansi || true
+
   php /var/www/html/artisan config:cache || true
   php /var/www/html/artisan route:cache || true
   php /var/www/html/artisan view:cache || true
