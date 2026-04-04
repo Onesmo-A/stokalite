@@ -10,5 +10,4 @@ storage/app/public
 public/hot
 .env
 .env.*
-*.png
 *.log

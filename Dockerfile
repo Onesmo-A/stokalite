@@ -7,8 +7,8 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY resources ./resources
 COPY webpack.mix.js webpack-rtl.config.js .
+RUN mkdir -p public
 # Mix expects public/ as output
-COPY public ./public
 RUN npm run production
 
 ### 2) PHP deps (Composer)
