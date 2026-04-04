@@ -15,32 +15,40 @@ class SettingTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Customer::Create([
-            'name' => 'walk-in-customer',
-            'email' => 'customer@infypos.com',
-            'phone' => '123456789',
-            'country' => 'india',
-            'city' => 'mumbai',
-            'address' => 'Dr Deshmukh Marg , mumbai',
-        ]);
-        Warehouse::create([
-            'name' => 'warehouse',
-            'phone' => '123456789',
-            'country' => 'india',
-            'city' => 'mumbai',
-            'email' => 'warehouse1@infypos.com',
-            'zip_code' => '12345',
-        ]);
+        Customer::firstOrCreate(
+            ['email' => 'customer@infypos.com'],
+            [
+                'name' => 'walk-in-customer',
+                'phone' => '123456789',
+                'country' => 'india',
+                'city' => 'mumbai',
+                'address' => 'Dr Deshmukh Marg , mumbai',
+            ]
+        );
 
-        Currency::create([
-            'name' => 'India',
-            'code' => 'INR',
-            'symbol' => '₹',
-        ]);
+        Warehouse::firstOrCreate(
+            ['email' => 'warehouse1@infypos.com'],
+            [
+                'name' => 'warehouse',
+                'phone' => '123456789',
+                'country' => 'india',
+                'city' => 'mumbai',
+                'zip_code' => '12345',
+            ]
+        );
+
+        $currency = Currency::firstOrCreate(
+            ['code' => 'INR'],
+            [
+                'name' => 'India',
+                'symbol' => 'â‚¹',
+            ]
+        );
+
         $logoUrl = ('images/infycare-logo.png');
 
         if (! keyExist('currency')) {
-            Setting::create(['key' => 'currency', 'value' => '1']);
+            Setting::create(['key' => 'currency', 'value' => (string) $currency->id]);
         }
 
         if (! keyExist('email')) {
@@ -88,13 +96,13 @@ class SettingTableSeeder extends Seeder
         }
 
         if (! keyExist('stripe_secret')) {
-            Setting::create(['key' => 'stripe_secret',
+            Setting::create([
+                'key' => 'stripe_secret',
                 'value' => 'pu_test_yBzA1qI1PcfRBAVn1vJG2VuS00HcyhQX9LASERTFDDS',
             ]);
         }
 
-        //sms configurations
-
+        // sms configurations
         if (! keyExist('sms_gateway')) {
             Setting::create(['key' => 'sms_gateway', 'value' => '1']);
         }
@@ -111,8 +119,7 @@ class SettingTableSeeder extends Seeder
             Setting::create(['key' => 'twillo_from', 'value' => 'asd']);
         }
 
-        // smtm configurations
-
+        // smtp configurations
         if (! keyExist('smtp_host')) {
             Setting::create(['key' => 'smtp_host', 'value' => 'mailtrap.io']);
         }
