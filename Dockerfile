@@ -12,7 +12,32 @@ RUN mkdir -p public
 RUN npm run production
 
 ### 2) PHP deps (Composer)
-FROM composer:2 AS vendor
+FROM php:8.2-cli-alpine AS vendor
+
+# Build deps for composer + required PHP extensions
+RUN apk add --no-cache \
+    git \
+    unzip \
+    bash \
+    icu-libs icu-dev \
+    libzip libzip-dev \
+    oniguruma-dev \
+    freetype-dev libjpeg-turbo-dev libpng-dev \
+    libpq-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+        mbstring \
+        bcmath \
+        pdo_mysql pdo_pgsql \
+        intl \
+        zip \
+        exif \
+        gd \
+    && rm -rf /var/cache/apk/*
+
+# Composer binary
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 WORKDIR /app
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
@@ -32,6 +57,8 @@ RUN apk add --no-cache \
     libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
+        mbstring \
+        bcmath \
         pdo_mysql pdo_pgsql \
         intl \
         zip \
@@ -60,4 +87,3 @@ RUN chmod +x /start.sh \
 EXPOSE 10000
 
 CMD ["/start.sh"]
-
