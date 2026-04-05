@@ -1,4 +1,3 @@
-```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -20,36 +19,25 @@ fi
 
 mkdir -p "${NGINX_VHOST_DIR}"
 
-if command -v envsubst >/dev/null 2>&1; then
-  envsubst '${PORT}' < "${TEMPLATE_PATH}" > "${NGINX_VHOST_DIR}/default.conf"
-else
-  sed "s/\${PORT}/${PORT}/g" "${TEMPLATE_PATH}" > "${NGINX_VHOST_DIR}/default.conf"
-fi
+# ✅ FIX: reliable PORT replacement (no envsubst issues)
+sed "s|\${PORT}|${PORT}|g" "${TEMPLATE_PATH}" > "${NGINX_VHOST_DIR}/default.conf"
 
-# ==============================
-# Laravel runtime directories
-# ==============================
+# Laravel runtime dirs (avoid "Please provide a valid cache path")
 mkdir -p /var/www/html/bootstrap/cache
 mkdir -p /var/www/html/storage/framework/cache/data
 mkdir -p /var/www/html/storage/framework/sessions
 mkdir -p /var/www/html/storage/framework/views
 
-# ==============================
-# FIX: uploads directory (IMPORTANT)
-# ==============================
+# ✅ uploads directory fix
 mkdir -p /var/www/html/public/uploads
 chown -R www-data:www-data /var/www/html/public/uploads || true
 chmod -R ug+rwX /var/www/html/public/uploads || true
 
-# ==============================
 # Permissions
-# ==============================
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache || true
 chmod -R ug+rwX /var/www/html/storage /var/www/html/bootstrap/cache || true
 
-# ==============================
-# Laravel bootstrap
-# ==============================
+# App bootstrap
 if [ -f /var/www/html/artisan ]; then
   php /var/www/html/artisan storage:link >/dev/null 2>&1 || true
 
@@ -57,6 +45,7 @@ if [ -f /var/www/html/artisan ]; then
     php /var/www/html/artisan migrate --force
   fi
 
+  # Optional: only enable for first boot
   if [ "${RUN_SEEDERS:-false}" = "true" ]; then
     php /var/www/html/artisan db:seed --force
   fi
@@ -67,8 +56,4 @@ if [ -f /var/www/html/artisan ]; then
   php /var/www/html/artisan view:cache || true
 fi
 
-# ==============================
-# Start services
-# ==============================
 exec /usr/bin/supervisord -c /etc/supervisord.conf
-```
