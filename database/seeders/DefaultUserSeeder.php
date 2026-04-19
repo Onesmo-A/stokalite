@@ -16,9 +16,9 @@ class DefaultUserSeeder extends Seeder
     public function run(): void
     {
         $user = User::firstOrCreate(
-            ['email' => 'admin@infy-pos.com'],
+['email' => 'admin@stoka.com'],
             [
-                'first_name' => 'admin',
+'first_name' => 'Stoka Admin',
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make('123456'),
             ]
