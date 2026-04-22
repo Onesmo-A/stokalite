@@ -12,7 +12,9 @@
 }
 
 .pos-screen {
-    background-color: rgb(0 158 247 / 5%) !important;
+    min-height: 100%;
+    background: var(--stokapos-surface-alt) !important;
+    color: var(--stokapos-text-primary) !important;
 
     .btn {
         border-radius: 0.625rem !important;

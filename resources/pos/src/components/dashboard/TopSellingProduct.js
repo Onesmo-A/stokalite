@@ -55,17 +55,21 @@ const TopSellingProduct = (props) => {
         <div className="pt-6">
             <Row className="g-4">
                 <div className="col-xxl-8 col-12">
-                    <Card>
-                        <Card.Header className="pb-0 px-10">
-                            <h5 className="mb-0">
+                    <Card className="stokapos-card">
+                        <Card.Header className="pb-0 px-10 border-0">
+                            <h5 className="mb-1">
                                 {getFormattedMessage(
                                     "dashboard.TopSellingProducts.title"
                                 )}{" "}
                                 ({moment().locale(languageCode).format("MMMM")})
                             </h5>
+                            <p className="stokapos-card__subtitle mb-0">
+                                Fast-moving products ranked by quantity and revenue
+                            </p>
                         </Card.Header>
                         <Card.Body className="pt-7 pb-2">
-                            <Table responsive>
+                            <div className="stokapos-table-wrap">
+                                <Table responsive className="stokapos-table">
                                 <thead>
                                     <tr>
                                         <th>
@@ -141,7 +145,8 @@ const TopSellingProduct = (props) => {
                                             );
                                         })}
                                 </tbody>
-                            </Table>
+                                </Table>
+                            </div>
                         </Card.Body>
                     </Card>
                 </div>

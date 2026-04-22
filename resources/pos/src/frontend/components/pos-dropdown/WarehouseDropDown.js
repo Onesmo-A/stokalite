@@ -21,7 +21,7 @@ const WarehouseDropDown = (props) => {
     };
 
     return (
-        <div className='select-box col-6 ps-sm-2 position-relative'>
+        <div className='select-box col-6 ps-1 position-relative'>
             <InputGroup>
                 <InputGroup.Text id='basic-addon1' className='bg-transparent position-absolute border-0 z-index-1 input-group-text py-4 px-3'>
                     <i className="bi bi-house fs-3 text-gray-900" />
@@ -33,6 +33,7 @@ const WarehouseDropDown = (props) => {
                     onChange={onChangeWarehouse}
                     options={warehouseOption}
                     noOptionsMessage={() => getFormattedMessage('no-option.label')}
+                    classNamePrefix='stokapos-select'
                 />
             </InputGroup>
         </div>

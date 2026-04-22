@@ -77,3 +77,193 @@
     background-color: #a9ecff !important;
 }
 
+.stokapos-kpi-card {
+    background: var(--stokapos-surface);
+    border: 1px solid var(--stokapos-border);
+    border-radius: 20px;
+    box-shadow: var(--stokapos-shadow);
+    color: var(--stokapos-text-primary);
+    min-height: 126px;
+    padding: 1rem 1.1rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--stokapos-shadow);
+    }
+}
+
+.stokapos-kpi-card__icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px !important;
+    background: var(--stokapos-surface-alt);
+    border: 1px solid var(--stokapos-border);
+    box-shadow: none;
+}
+
+.stokapos-kpi-card__content {
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.stokapos-kpi-card__topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.stokapos-kpi-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 0;
+}
+
+.stokapos-kpi-card__label {
+    color: var(--stokapos-text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.stokapos-kpi-card__menu {
+    background: transparent;
+    border: 0;
+    color: var(--stokapos-text-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.stokapos-kpi-card__bottomline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.stokapos-kpi-card__badge {
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 0.38rem 0.66rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+}
+
+.stokapos-kpi-card__badge--up {
+    background: rgba(34, 197, 94, 0.14);
+    border: 1px solid rgba(34, 197, 94, 0.16);
+    color: var(--stokapos-success);
+}
+
+.stokapos-kpi-card__badge--down {
+    background: rgba(245, 158, 11, 0.14);
+    border: 1px solid rgba(245, 158, 11, 0.16);
+    color: var(--stokapos-warning);
+}
+
+.stokapos-kpi-card__value {
+    color: var(--stokapos-text-primary);
+    font-size: clamp(1.2rem, 1vw + 1rem, 1.95rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+
+.stokapos-kpi-icon--minimal {
+    color: var(--stokapos-text-secondary);
+
+    svg {
+        color: var(--stokapos-text-secondary) !important;
+        opacity: 0.85;
+        font-size: 0.68rem !important;
+    }
+}
+
+.stokapos-chart-card__body {
+    min-height: 420px;
+}
+
+.stokapos-chart-canvas {
+    position: relative;
+    min-height: 340px;
+    height: 100%;
+}
+
+.stokapos-table-wrap {
+    overflow-x: auto;
+}
+
+.stokapos-table {
+    margin-bottom: 0;
+
+    thead th {
+        background: transparent;
+        color: var(--stokapos-text-muted);
+        border-bottom: 1px solid var(--stokapos-border);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding-bottom: 1rem;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    tbody tr {
+        transition: background-color 0.22s ease;
+
+        &:hover {
+            background: var(--stokapos-hover);
+        }
+    }
+
+    tbody td {
+        background: transparent;
+        border-color: rgba(230, 233, 242, 0.65);
+        color: var(--stokapos-text-secondary);
+    }
+}
+
+[data-theme="dark"] {
+    .stokapos-card,
+    .stokapos-chart-card,
+    .stokapos-card .card-header,
+    .stokapos-card .card-body,
+    .stokapos-table,
+    .stokapos-table-wrap {
+        background: var(--stokapos-surface) !important;
+    }
+
+    .stokapos-table thead th {
+        background: var(--stokapos-surface-alt) !important;
+        color: var(--stokapos-text-muted) !important;
+    }
+
+    .stokapos-table tbody tr:hover {
+        background: var(--stokapos-hover) !important;
+    }
+
+    .stokapos-table tbody td {
+        border-color: rgba(42, 47, 90, 0.9);
+        color: var(--stokapos-text-secondary) !important;
+    }
+
+    .bg-light-primary,
+    .bg-light-success,
+    .bg-light-warning,
+    .bg-light-danger,
+    .bg-light-info {
+        color: white !important;
+    }
+}

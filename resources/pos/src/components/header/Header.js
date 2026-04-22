@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Nav, Navbar } from 'react-bootstrap-v5';
 import { connect, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Tokens } from '../../constants/index'
 import { logoutAction } from '../../store/action/authAction';
 import ChangePassword from '../auth/change-password/ChangePassword';
@@ -25,7 +25,7 @@ import {
     faLock,
     faRightFromBracket,
     faAngleDown,
-    faBell, faLanguage
+    faBell, faLanguage, faMoon, faSun
 } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown, Row } from "react-bootstrap";
 import { productQuantityReportAction } from '../../store/action/paymentQuantityReport';
@@ -34,8 +34,18 @@ import LanguageModel from "../user-profile/LanguageModel";
 import PosRegisterModel from '../posRegister/PosRegisterModel.js';
 
 const Header = (props) => {
-    const { logoutAction, newRoutes, updateLanguage, selectedLanguage, productQuantityReportAction, productQuantityReport } = props;
+    const {
+        logoutAction,
+        newRoutes,
+        updateLanguage,
+        selectedLanguage,
+        productQuantityReportAction,
+        productQuantityReport,
+        theme,
+        toggleTheme,
+    } = props;
     const navigate = useNavigate();
+    const location = useLocation();
     const users = localStorage.getItem(Tokens.USER);
     const firstName = localStorage.getItem(Tokens.FIRST_NAME);
     const lastName = localStorage.getItem(Tokens.LAST_NAME);
@@ -53,6 +63,7 @@ const Header = (props) => {
     const [totalRecords, setTotalRecords] = useState(0)
     const [showPosRegisterModel, setShowPosRegisterModel] = useState(false)
     const { allConfigData } = useSelector(state => state)
+    const safeRoutes = Array.isArray(newRoutes) ? newRoutes : [];
 
     useEffect(() => {
         let isLoading
@@ -128,13 +139,35 @@ const Header = (props) => {
         setShowPosRegisterModel(false)
     }
 
+    const resolveActivePage = () => {
+        const currentRoute = newRoutes?.find((route) => {
+            if (route.to && location.pathname === route.to) {
+                return true;
+            }
+
+            return route.newRoute?.some((subRoute) =>
+                location.pathname.includes(subRoute.to)
+            );
+        });
+
+        if (currentRoute?.newRoute) {
+            const activeSubRoute = currentRoute.newRoute.find((subRoute) =>
+                location.pathname.includes(subRoute.to)
+            );
+
+            return getFormattedMessage(activeSubRoute?.title || currentRoute.title);
+        }
+
+        return getFormattedMessage(currentRoute?.title || "dashboard.title");
+    }
+
     return (
-        <Navbar collapseOnSelect expand='lg' className='align-items-stretch ms-auto py-1'>
-            <div className='d-flex align-items-stretch justify-content-center'>
-                <Nav className='align-items-stretch justify-content-between flex-row'>
-                    <ul className='nav align-items-center'>
+        <Navbar collapseOnSelect expand='lg' className='align-items-stretch ms-auto py-1 stokapos-topbar'>
+            <div className='d-flex align-items-center justify-content-between flex-wrap w-100 gap-3'>
+                <Nav className='align-items-stretch justify-content-between flex-row stokapos-topbar__actions'>
+                    <ul className='nav align-items-center stokapos-topbar__primary-actions'>
                         <li>
-                            {newRoutes.map((route) => route.permission).filter(routeName => routeName === 'manage_pos_screen')[0] === 'manage_pos_screen'
+                            {safeRoutes.map((route) => route.permission).filter(routeName => routeName === 'manage_pos_screen')[0] === 'manage_pos_screen'
                                 ?
                                 allConfigData?.open_register === true
                                     ?
@@ -151,13 +184,28 @@ const Header = (props) => {
                                 ''
                             }
                         </li>
+                        <li className="px-sm-2 px-1">
+                            <button
+                                type="button"
+                                className="stokapos-theme-toggle"
+                                onClick={toggleTheme}
+                                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                            >
+                                <FontAwesomeIcon icon={theme === "dark" ? faSun : faMoon} />
+                            </button>
+                        </li>
                         {isFullscreen === true ?
                             <li className="px-sm-3 px-2" onClick={() => fullScreen()}>
-                                <FontAwesomeIcon icon={faMinimize} className='text-primary fs-2' />
+                                <button type="button" className="stokapos-icon-button">
+                                    <FontAwesomeIcon icon={faMinimize} className='fs-5' />
+                                </button>
                             </li>
                             :
                             <li className="px-sm-3 px-2" onClick={() => fullScreen()}>
-                                <FontAwesomeIcon icon={faMaximize} className='text-primary fs-2' />
+                                <button type="button" className="stokapos-icon-button">
+                                    <FontAwesomeIcon icon={faMaximize} className='fs-5' />
+                                </button>
                             </li>
                         }
                     </ul>
@@ -257,26 +305,26 @@ const Header = (props) => {
                     {/*</div>*/}
                     {/*</div>*/}
                     <Dropdown className='d-flex align-items-stretch'>
-                        <Dropdown.Toggle className='hide-arrow bg-transparent border-0 p-0 d-flex align-items-center'
+                        <Dropdown.Toggle className='hide-arrow bg-transparent border-0 p-0 d-flex align-items-center stokapos-user-trigger'
                             id='dropdown-basic'>
                             <div className='d-flex align-items-center justify-content-center'>
                                 {imageUrl || image ?
                                     <Image src={imageUrl ? imageUrl : image || User}
-                                        className='image image-circle image-tiny'
-                                        alt='user-avatar' height='50' width='50' />
+                                        className='image image-circle image-tiny stokapos-user-trigger__avatar'
+                                        alt='user-avatar' height='40' width='40' />
                                     :
-                                    <span className='custom-user-avatar'>
+                                    <span className='custom-user-avatar stokapos-user-trigger__avatar-fallback'>
                                         {getAvatarName(updatedFirstName && updatedLastName ? updatedFirstName + ' ' + updatedLastName : firstName + ' ' + lastName)}
                                     </span>
                                 }
                                 <span
-                                    className='ms-2 text-gray-600 d-none d-sm-block'>
+                                    className='ms-2 d-none d-sm-block stokapos-user-trigger__name'>
                                     {updatedFirstName && updatedLastName ? <>{updatedFirstName + ' ' + updatedLastName}</> : <> {firstName + ' ' + lastName}</>}
                                 </span>
                             </div>
-                            <FontAwesomeIcon icon={faAngleDown} className="text-gray-600 ms-2 d-none d-sm-block" />
+                            <FontAwesomeIcon icon={faAngleDown} className="ms-2 d-none d-sm-block stokapos-user-trigger__arrow" />
                         </Dropdown.Toggle>
-                        <Dropdown.Menu>
+                        <Dropdown.Menu className='stokapos-user-menu'>
                             <div className='text-center pb-1 border-bottom mb-4'>
                                 <div className='text-center text-decoration-none pb-5 w-100 align-items-center'>
                                     <div className='image image-circle w-100 image-tiny pb-5'>

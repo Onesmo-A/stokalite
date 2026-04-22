@@ -1,73 +1,71 @@
-import React, { useEffect, useState } from 'react';
-import ReactECharts from 'echarts-for-react';
+import React from "react";
+import ReactECharts from "echarts-for-react";
 
-const TopSellingProductChart = ( props ) => {
-  const { yearTopProduct } = props
-  const allQuantity = yearTopProduct ? yearTopProduct.total_quantity : [];
-  const allName = yearTopProduct ? yearTopProduct.name : [];
-  const [ allData, setAllData ] = useState( [] )
+const TopSellingProductChart = (props) => {
+    const { yearTopProduct } = props;
+    const allQuantity = Array.isArray(yearTopProduct?.total_quantity)
+        ? yearTopProduct.total_quantity
+        : [];
+    const allName = Array.isArray(yearTopProduct?.name)
+        ? yearTopProduct.name
+        : [];
+    const cssVariables = getComputedStyle(document.documentElement);
 
-  useEffect( () => {
-    if ( allQuantity && allName ) {
-      countDatas()
-    }
-  }, [ yearTopProduct ] )
+    const allData = allQuantity.map((value, i) => ({
+        value: allQuantity[i],
+        name: allName[i],
+    }));
 
-  const countDatas = () => {
-    if ( allData.length === 0 ) {
-      allQuantity.map( ( value, i ) => {
-        setAllData( ( oldValue ) => [ ...oldValue, {
-          value: allQuantity[ i ],
-          name: allName[ i ]
-        } ] );
-      } )
-    } else if ( allData.length >= 1 ) {
-      setAllData( [] )
-      allQuantity.map( ( value, i ) => {
-        setAllData( ( oldValue ) => [ ...oldValue, {
-          value: allQuantity[ i ],
-          name: allName[ i ]
-        } ] );
-      } )
-    }
-  }
+    const option = {
+        backgroundColor: "transparent",
+        color: ["#0B6CFF", "#7B3FE4", "#00C2FF", "#22C55E", "#F59E0B", "#EF4444"],
+        tooltip: {
+            trigger: "item",
+            backgroundColor: cssVariables
+                .getPropertyValue("--stokapos-surface")
+                .trim(),
+            borderColor: cssVariables
+                .getPropertyValue("--stokapos-border")
+                .trim(),
+            textStyle: {
+                color: cssVariables
+                    .getPropertyValue("--stokapos-text-primary")
+                    .trim(),
+            },
+        },
+        legend: {
+            orient: "vertical",
+            right: 0,
+            top: "center",
+            textStyle: {
+                color: cssVariables
+                    .getPropertyValue("--stokapos-text-secondary")
+                    .trim(),
+            },
+        },
+        series: [
+            {
+                name: "",
+                type: "pie",
+                radius: ["48%", "74%"],
+                data: allData,
+                label: {
+                    color: cssVariables
+                        .getPropertyValue("--stokapos-text-secondary")
+                        .trim(),
+                },
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 22,
+                        shadowOffsetX: 0,
+                        shadowColor: "rgba(123, 63, 228, 0.35)",
+                    },
+                },
+            },
+        ],
+    };
 
-  const option = {
-    title: {
-      text: '',
-      subtext: '',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'item',
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'right'
-    },
-    series: [
-      {
-        name: '',
-        type: 'pie',
-        radius: '50%',
-        data: allData,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
-      }
-    ]
-  };
-
-  return (
-    <ReactECharts
-      option={option}
-      style={{ height: 400 }}
-    />
-  );
+    return <ReactECharts option={option} style={{ height: 360 }} />;
 };
 
 export default TopSellingProductChart;

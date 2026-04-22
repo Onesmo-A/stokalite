@@ -43,254 +43,147 @@ const TodaySalePurchaseCount = (props) => {
         }
     };
 
+    const cards = [
+        {
+            title: getFormattedMessage("sales.title"),
+            redirect: "app/sales",
+            permission: "manage_sale",
+            accentClass: "stokapos-kpi-card--minimal",
+            iconClass: "stokapos-kpi-icon stokapos-kpi-icon--minimal",
+            icon: faShoppingCart,
+            value: allSalePurchase.all_sales_count,
+            badgeText: "+12%",
+            trendDirection: "up",
+        },
+        {
+            title: getFormattedMessage("purchases.title"),
+            redirect: "app/purchases",
+            permission: "manage_purchase",
+            accentClass: "stokapos-kpi-card--minimal",
+            iconClass: "stokapos-kpi-icon stokapos-kpi-icon--minimal",
+            icon: faCartPlus,
+            value: allSalePurchase.all_purchases_count,
+            badgeText: "+8%",
+            trendDirection: "up",
+        },
+        {
+            title: getFormattedMessage("sales-return.title"),
+            redirect: "app/sale-return",
+            permission: "manage_sale_return",
+            accentClass: "stokapos-kpi-card--minimal",
+            iconClass: "stokapos-kpi-icon stokapos-kpi-icon--minimal",
+            icon: faArrowRight,
+            value: allSalePurchase.all_sale_return_count,
+            badgeText: "-3%",
+            trendDirection: "down",
+        },
+        {
+            title: getFormattedMessage("purchases.return.title"),
+            redirect: "app/purchase-return",
+            permission: "manage_purchase_return",
+            accentClass: "stokapos-kpi-card--minimal",
+            iconClass: "stokapos-kpi-icon stokapos-kpi-icon--minimal",
+            icon: faArrowLeft,
+            value: allSalePurchase.all_purchase_return_count,
+            badgeText: "-2%",
+            trendDirection: "down",
+        },
+        {
+            title: getFormattedMessage(
+                "dashboard.widget.today-total-sales.label"
+            ),
+            redirect: "app/sales",
+            permission: "manage_sale",
+            accentClass: "stokapos-kpi-card--minimal",
+            iconClass: "stokapos-kpi-icon stokapos-kpi-icon--minimal",
+            icon: faDollar,
+            value: todayCount.today_sales,
+            badgeText: "+24%",
+            trendDirection: "up",
+        },
+        {
+            title: getFormattedMessage(
+                "dashboard.widget.today-payment-received.label"
+            ),
+            redirect: "app/sales",
+            permission: "manage_sale",
+            accentClass: "stokapos-kpi-card--minimal",
+            iconClass: "stokapos-kpi-icon stokapos-kpi-icon--minimal",
+            icon: faMoneyBill,
+            value: todayCount.today_sales_received_count,
+            badgeText: "+15%",
+            trendDirection: "up",
+        },
+        {
+            title: getFormattedMessage(
+                "dashboard.widget.today-total-purchases.label"
+            ),
+            redirect: "app/purchases",
+            permission: "manage_purchase",
+            accentClass: "stokapos-kpi-card--minimal",
+            iconClass: "stokapos-kpi-icon stokapos-kpi-icon--minimal",
+            icon: faCartPlus,
+            value: todayCount.today_purchases,
+            badgeText: "+5%",
+            trendDirection: "up",
+        },
+        {
+            title: getFormattedMessage(
+                "dashboard.widget.today-total-expense.label"
+            ),
+            redirect: "app/expenses",
+            permission: "manage_expenses",
+            accentClass: "stokapos-kpi-card--minimal",
+            iconClass: "stokapos-kpi-icon stokapos-kpi-icon--minimal",
+            icon: faSquareMinus,
+            value: todayCount.today_expense_count,
+            badgeText: "-6%",
+            trendDirection: "down",
+        },
+    ];
+
     return (
         <Row className="g-4">
             <Col className="col-12 mb-4">
-                <Row>
-                    <Widget
-                        title={getFormattedMessage("sales.title")}
-                        onClick={() => onClick("app/sales", "manage_sale")}
-                        allConfigData={allConfigData}
-                        className={`bg-primary ${
-                            config &&
-                            config.filter((item) => item === "manage_sale")
-                                .length !== 0
-                                ? "cursor-pointer"
-                                : ""
-                        }`}
-                        iconClass="bg-cyan-300"
-                        icon={
-                            <FontAwesomeIcon
-                                icon={faShoppingCart}
-                                className="fs-1-xl text-white"
-                            />
-                        }
-                        currency={
-                            frontSetting.value &&
-                            frontSetting.value.currency_symbol
-                        }
-                        value={
-                            allSalePurchase.all_sales_count
-                                ? parseFloat(
-                                      allSalePurchase.all_sales_count
-                                  ).toFixed(2)
-                                : "0.00"
-                        }
-                    />
-
-                    <Widget
-                        title={getFormattedMessage("purchases.title")}
-                        allConfigData={allConfigData}
-                        onClick={() =>
-                            onClick("app/purchases", "manage_purchase")
-                        }
-                        className={`bg-success ${
-                            config &&
-                            config.filter((item) => item === "manage_purchase")
-                                .length !== 0
-                                ? "cursor-pointer"
-                                : ""
-                        }`}
-                        iconClass="bg-green-300"
-                        icon={
-                            <FontAwesomeIcon
-                                icon={faCartPlus}
-                                className="fs-1-xl text-white"
-                            />
-                        }
-                        currency={
-                            frontSetting.value &&
-                            frontSetting.value.currency_symbol
-                        }
-                        value={
-                            allSalePurchase.all_purchases_count
-                                ? parseFloat(
-                                      allSalePurchase.all_purchases_count
-                                  ).toFixed(2)
-                                : "0.00"
-                        }
-                    />
-
-                    <Widget
-                        title={getFormattedMessage("sales-return.title")}
-                        allConfigData={allConfigData}
-                        onClick={() =>
-                            onClick("app/sale-return", "manage_sale_return")
-                        }
-                        className={`bg-info ${
+                <Row className="g-4">
+                    {cards.map((card) => {
+                        const canOpen =
                             config &&
                             config.filter(
-                                (item) => item === "manage_sale_return"
-                            ).length !== 0
-                                ? "cursor-pointer"
-                                : ""
-                        }`}
-                        iconClass="bg-blue-300"
-                        icon={
-                            <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="fs-1-xl text-white"
-                            />
-                        }
-                        currency={
-                            frontSetting.value &&
-                            frontSetting.value.currency_symbol
-                        }
-                        value={
-                            allSalePurchase.all_sale_return_count
-                                ? parseFloat(
-                                      allSalePurchase.all_sale_return_count
-                                  ).toFixed(2)
-                                : "0.00"
-                        }
-                    />
+                                (item) => item === card.permission
+                            ).length !== 0;
 
-                    <Widget
-                        title={getFormattedMessage("purchases.return.title")}
-                        allConfigData={allConfigData}
-                        onClick={() =>
-                            onClick(
-                                "app/purchase-return",
-                                "manage_purchase_return"
-                            )
-                        }
-                        className={`bg-warning ${
-                            config &&
-                            config.filter(
-                                (item) => item === "manage_purchase_return"
-                            ).length !== 0
-                                ? "cursor-pointer"
-                                : ""
-                        }`}
-                        iconClass="bg-yellow-300"
-                        icon={
-                            <FontAwesomeIcon
-                                icon={faArrowLeft}
-                                className="fs-1-xl text-white"
+                        return (
+                            <Widget
+                                key={card.title}
+                                title={card.title}
+                                onClick={() =>
+                                    onClick(card.redirect, card.permission)
+                                }
+                                allConfigData={allConfigData}
+                                className={canOpen ? "cursor-pointer" : ""}
+                                accentClass={card.accentClass}
+                                badgeText={card.badgeText}
+                                trendDirection={card.trendDirection}
+                                iconClass={card.iconClass}
+                                icon={
+                                    <FontAwesomeIcon
+                                        icon={card.icon}
+                                        className="fs-6"
+                                    />
+                                }
+                                currency={
+                                    frontSetting.value &&
+                                    frontSetting.value.currency_symbol
+                                }
+                                value={
+                                    card.value
+                                        ? parseFloat(card.value).toFixed(2)
+                                        : "0.00"
+                                }
                             />
-                        }
-                        currency={
-                            frontSetting.value &&
-                            frontSetting.value.currency_symbol
-                        }
-                        value={
-                            allSalePurchase.all_purchase_return_count
-                                ? parseFloat(
-                                      allSalePurchase.all_purchase_return_count
-                                  ).toFixed(2)
-                                : "0.00"
-                        }
-                    />
-
-                    <Widget
-                        title={getFormattedMessage(
-                            "dashboard.widget.today-total-sales.label"
-                        )}
-                        allConfigData={allConfigData}
-                        onClick={() => onClick("app/sales", "manage_sale")}
-                        className="widget-bg-purple  cursor-pointer"
-                        iconClass="bg-purple-700"
-                        icon={
-                            <FontAwesomeIcon
-                                icon={faDollar}
-                                className="fs-1-xl text-white"
-                            />
-                        }
-                        currency={
-                            frontSetting.value &&
-                            frontSetting.value.currency_symbol
-                        }
-                        value={
-                            todayCount.today_sales
-                                ? parseFloat(todayCount.today_sales).toFixed(2)
-                                : "0.00"
-                        }
-                    />
-
-                    <Widget
-                        title={getFormattedMessage(
-                            "dashboard.widget.today-payment-received.label"
-                        )}
-                        allConfigData={allConfigData}
-                        onClick={() => onClick("app/sales", "manage_sale")}
-                        className="widget-bg-pink cursor-pointer"
-                        iconClass="bg-pink-700"
-                        icon={
-                            <FontAwesomeIcon
-                                icon={faMoneyBill}
-                                className="fs-1-xl text-white"
-                            />
-                        }
-                        currency={
-                            frontSetting.value &&
-                            frontSetting.value.currency_symbol
-                        }
-                        value={
-                            todayCount.today_sales_received_count
-                                ? parseFloat(
-                                      todayCount.today_sales_received_count
-                                  ).toFixed(2)
-                                : "0.00"
-                        }
-                    />
-
-                    <Widget
-                        title={getFormattedMessage(
-                            "dashboard.widget.today-total-purchases.label"
-                        )}
-                        allConfigData={allConfigData}
-                        onClick={() =>
-                            onClick("app/purchases", "manage_purchase")
-                        }
-                        className="widget-bg-blue cursor-pointer"
-                        iconClass="widget-bg-blue-700 "
-                        icon={
-                            <FontAwesomeIcon
-                                icon={faCartPlus}
-                                className="fs-1-xl text-white"
-                            />
-                        }
-                        currency={
-                            frontSetting.value &&
-                            frontSetting.value.currency_symbol
-                        }
-                        value={
-                            todayCount.today_purchases
-                                ? parseFloat(
-                                      todayCount.today_purchases
-                                  ).toFixed(2)
-                                : "0.00"
-                        }
-                    />
-
-                    <Widget
-                        title={getFormattedMessage(
-                            "dashboard.widget.today-total-expense.label"
-                        )}
-                        allConfigData={allConfigData}
-                        onClick={() =>
-                            onClick("app/expenses", "manage_expenses")
-                        }
-                        className="widget-bg-red cursor-pointer"
-                        iconClass="bg-red-300"
-                        icon={
-                            <FontAwesomeIcon
-                                icon={faSquareMinus}
-                                className="fs-1-xl text-white"
-                            />
-                        }
-                        currency={
-                            frontSetting.value &&
-                            frontSetting.value.currency_symbol
-                        }
-                        value={
-                            todayCount.today_expense_count
-                                ? parseFloat(
-                                      todayCount.today_expense_count
-                                  ).toFixed(2)
-                                : "0.00"
-                        }
-                    />
+                        );
+                    })}
                 </Row>
             </Col>
         </Row>

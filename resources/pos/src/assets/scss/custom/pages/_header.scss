@@ -4,12 +4,16 @@
     position: absolute !important;
     padding: 1rem 0 !important;
     top: 0 !important;
-    box-shadow: 0 5px 20px rgb(173 181 189 / 20%);
+    box-shadow: var(--stokapos-shadow);
     transition: all 400ms ease-in-out;
     right: 0 !important;
     left: auto !important;
+    background: var(--stokapos-surface) !important;
+    border: 1px solid var(--stokapos-border) !important;
+    border-radius: 18px !important;
 
     .dropdown-item {
+        color: var(--stokapos-text-secondary) !important;
         &:active {
             background-color: $gray-100;
             color: $primary;
@@ -72,19 +76,165 @@
 }
 
 .pos-button {
-    border: 1px solid $primary;
+    border: 1px solid transparent;
     color: whitesmoke;
-    padding: 10px 20px;
-    border-radius: 50%;
+    padding: 11px 18px;
+    border-radius: 12px;
     text-decoration: none;
     transition-duration: 0.4s;
     cursor: pointer;
-    background-color: $primary;
-    transition: all 0.6s ease-in-out;
-    box-shadow: 0 0 17px 1px rgb(173 181 189 / 5%), 0 6px 20px 0 rgb(0 0 0 / 15%);
+    background: var(--stokapos-gradient);
+    transition: all 0.3s ease-in-out;
+    box-shadow: var(--stokapos-glow);
   }
 
   .pos-button-highlight:hover {
-    background-color: transparent;
-    color: $primary;
+    transform: translateY(-2px);
+    color: white;
   }
+
+.stokapos-topbar {
+    width: 100%;
+}
+
+.stokapos-topbar__actions {
+    margin-left: auto;
+}
+
+.stokapos-theme-toggle,
+.stokapos-icon-button {
+    border: 1px solid var(--stokapos-border);
+    background: var(--stokapos-surface);
+    color: var(--stokapos-text-primary);
+    border-radius: 12px;
+    height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0 0.95rem;
+    transition: all 0.25s ease;
+}
+
+.stokapos-theme-toggle {
+    padding: 0;
+}
+
+.stokapos-theme-toggle:hover,
+.stokapos-icon-button:hover,
+.stokapos-user-trigger:hover {
+    transform: translateY(-1px);
+    border-color: rgba(123, 63, 228, 0.45);
+    box-shadow: var(--stokapos-glow);
+}
+
+.stokapos-user-trigger {
+    padding: 0.3rem 0.45rem !important;
+    border-radius: 14px !important;
+    background: var(--stokapos-surface) !important;
+    border: 1px solid var(--stokapos-border) !important;
+}
+
+.stokapos-user-trigger__avatar,
+.stokapos-user-trigger__avatar-fallback {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.stokapos-user-trigger__avatar-fallback {
+    font-size: 1rem !important;
+}
+
+.stokapos-user-trigger__name,
+.stokapos-user-trigger__arrow {
+    color: var(--stokapos-text-secondary) !important;
+}
+
+.stokapos-user-menu {
+    min-width: 260px !important;
+}
+
+.stokapos-pos-theme-btn {
+    width: 60px;
+    height: 60px;
+    border: 0;
+    border-radius: 18px;
+    background: var(--stokapos-gradient);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--stokapos-shadow-soft);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.stokapos-pos-theme-btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.96;
+}
+
+@media (max-width: 767px) {
+    .stokapos-topbar {
+        padding-top: 0.25rem !important;
+        padding-bottom: 0.25rem !important;
+    }
+
+    .stokapos-topbar > div {
+        gap: 0.5rem !important;
+    }
+
+    .stokapos-topbar__primary-actions {
+        gap: 0.25rem;
+    }
+
+    .stokapos-topbar__primary-actions > li {
+        padding-left: 0.15rem !important;
+        padding-right: 0.15rem !important;
+    }
+
+    .pos-button {
+        padding: 9px 12px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+    }
+
+    .stokapos-theme-toggle,
+    .stokapos-icon-button {
+        width: 38px;
+        min-width: 38px;
+        height: 38px;
+        border-radius: 10px;
+    }
+
+    .stokapos-user-trigger {
+        padding: 0.2rem !important;
+        min-width: 38px;
+        min-height: 38px;
+        border-radius: 10px !important;
+    }
+
+    .stokapos-user-trigger__avatar,
+    .stokapos-user-trigger__avatar-fallback {
+        width: 34px !important;
+        height: 34px !important;
+    }
+
+    .stokapos-user-trigger__avatar-fallback {
+        font-size: 0.9rem !important;
+    }
+
+    .header-btn-grp .nav-item,
+    .header-btn-grp .dropdown-toggle,
+    .stokapos-pos-theme-btn {
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 14px !important;
+    }
+
+    .header-btn-grp .fa-2x,
+    .header-btn-grp .fs-1,
+    .stokapos-pos-theme-btn svg {
+        font-size: 1.1rem !important;
+    }
+}

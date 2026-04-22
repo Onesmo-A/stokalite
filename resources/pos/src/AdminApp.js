@@ -11,6 +11,7 @@ function AdminApp(props) {
     const { config } = props;
     const token = localStorage.getItem(Tokens.ADMIN);
     const { allConfigData } = useSelector((state) => state);
+    const safeConfig = Array.isArray(config) ? config : [];
 
     const prepareRoutes = (config) => {
         const permissions = config;
@@ -26,11 +27,11 @@ function AdminApp(props) {
         return filterRoutes;
     };
 
-    if (config.length === 0 && token !== null) {
+    if (safeConfig.length === 0 && token !== null) {
         return <TopProgressBar />;
     }
 
-    const routes = config && prepareRoutes(config);
+    const routes = prepareRoutes(safeConfig);
 
     return (
         <Routes>

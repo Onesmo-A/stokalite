@@ -10,6 +10,7 @@ import { environment } from "../config/environment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { fetchConfig } from "../store/action/configAction";
+import useThemeMode from "../shared/hooks/useThemeMode";
 
 const MasterLayout = (props) => {
     const {
@@ -22,6 +23,7 @@ const MasterLayout = (props) => {
     } = props;
     const [isResponsiveMenu, setIsResponsiveMenu] = useState(false);
     const [isMenuCollapse, setIsMenuCollapse] = useState(false);
+    const { theme, toggleTheme } = useThemeMode();
     const newRoutes = config && prepareRoutes(config);
     const token = localStorage.getItem(Tokens.ADMIN);
 
@@ -43,7 +45,10 @@ const MasterLayout = (props) => {
     };
 
     return (
-        <div className="d-flex flex-row flex-column-fluid">
+        <div
+            className={`d-flex flex-row flex-column-fluid stokapos-shell stokapos-shell--${theme}`}
+            data-theme={theme}
+        >
             <AsideDefault
                 asideConfig={newRoutes}
                 frontSetting={frontSetting}
@@ -51,13 +56,14 @@ const MasterLayout = (props) => {
                 menuClick={menuClick}
                 menuIconClick={menuIconClick}
                 isMenuCollapse={isMenuCollapse}
+                theme={theme}
             />
             <div
                 className={`${
                     isMenuCollapse === true ? "wrapper-res" : "wrapper"
-                } d-flex flex-column flex-row-fluid`}
+                } d-flex flex-column flex-row-fluid stokapos-main-shell`}
             >
-                <div className="d-flex align-items-stretch justify-content-between header">
+                <div className="d-flex align-items-stretch justify-content-between header stokapos-header-shell">
                     <div className="container-fluid d-flex align-items-stretch justify-content-xxl-between flex-grow-1">
                         <button
                             type="button"
@@ -71,10 +77,14 @@ const MasterLayout = (props) => {
                             asideConfig={asideConfig}
                             isMenuCollapse={isMenuCollapse}
                         />
-                        <Header newRoutes={newRoutes} />
+                        <Header
+                            newRoutes={newRoutes}
+                            theme={theme}
+                            toggleTheme={toggleTheme}
+                        />
                     </div>
                 </div>
-                <div className="content d-flex flex-column flex-column-fluid pt-7">
+                <div className="content d-flex flex-column flex-column-fluid stokapos-content">
                     <div className="d-flex flex-column-fluid">
                         <div className="container-fluid">{children}</div>
                     </div>

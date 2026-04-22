@@ -46,6 +46,13 @@ const ThisWeekSalePurchaseChart = (props) => {
 
     const [isLineChart, isSetLineChart] = useState(false);
     const year = new Date();
+    const cssVariables = getComputedStyle(document.documentElement);
+    const axisColor = cssVariables
+        .getPropertyValue("--stokapos-text-muted")
+        .trim();
+    const borderColor = cssVariables
+        .getPropertyValue("--stokapos-border")
+        .trim();
 
     useEffect(() => {
         weekSalePurchases();
@@ -68,23 +75,38 @@ const ThisWeekSalePurchaseChart = (props) => {
     };
 
     const yFormatter = (yValue) => {
-        const value = yValue;
         const currencySymbol = currency ? currency : "";
+
         return currencySymbolHandling(
             allConfigData,
             currencySymbol,
-            value,
+            yValue,
             true
         );
     };
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: "top",
+                labels: {
+                    color: axisColor,
+                    usePointStyle: true,
+                    boxWidth: 10,
+                },
             },
             tooltip: {
+                backgroundColor: cssVariables
+                    .getPropertyValue("--stokapos-surface")
+                    .trim(),
+                titleColor: cssVariables
+                    .getPropertyValue("--stokapos-text-primary")
+                    .trim(),
+                bodyColor: axisColor,
+                borderColor: borderColor,
+                borderWidth: 1,
                 callbacks: {
                     label: (tooltipItems) => valueFormatter(tooltipItems),
                 },
@@ -92,13 +114,27 @@ const ThisWeekSalePurchaseChart = (props) => {
         },
         scales: {
             y: {
+                grid: {
+                    color: borderColor,
+                    drawBorder: false,
+                },
                 ticks: {
                     callback: (value) => yFormatter(value),
+                    color: axisColor,
                 },
                 title: {
                     display: true,
                     text: placeholderText("expense.input.amount.label"),
                     align: "center",
+                    color: axisColor,
+                },
+            },
+            x: {
+                grid: {
+                    display: false,
+                },
+                ticks: {
+                    color: axisColor,
                 },
             },
         },
@@ -112,12 +148,14 @@ const ThisWeekSalePurchaseChart = (props) => {
             {
                 label: placeholderText("sales.title"),
                 data: weekSalePurchase ? weekSalePurchase.sales : "",
-                backgroundColor: "#6571ff",
+                backgroundColor: "rgba(11, 108, 255, 0.9)",
+                borderRadius: 12,
             },
             {
                 label: placeholderText("purchases.title"),
                 data: weekSalePurchase ? weekSalePurchase.purchases : "",
-                backgroundColor: "#38c074",
+                backgroundColor: "rgba(34, 197, 94, 0.9)",
+                borderRadius: 12,
             },
         ],
     };
@@ -125,13 +163,19 @@ const ThisWeekSalePurchaseChart = (props) => {
     return (
         <Row className="g-4">
             <div className="col-xxl-8 col-12">
-                <Card>
-                    <Card.Header className="pb-0 px-10">
-                        <h5 className="mb-0">
-                            {getFormattedMessage(
-                                "dashboard.ThisWeekSales&Purchases.title"
-                            )}
-                        </h5>
+                <Card className="stokapos-card stokapos-chart-card h-100">
+                    <Card.Header className="pb-0 px-10 border-0 d-flex align-items-start justify-content-between">
+                        <div>
+                            <h5 className="mb-1">
+                                {getFormattedMessage(
+                                    "dashboard.ThisWeekSales&Purchases.title"
+                                )}
+                            </h5>
+                            <p className="stokapos-card__subtitle mb-0">
+                                Revenue and purchase movement across the current
+                                week
+                            </p>
+                        </div>
                         <div className="mb-2 chart-dropdown">
                             <NavDropdown
                                 title={<FontAwesomeIcon icon={faBars} />}
@@ -143,6 +187,7 @@ const ThisWeekSalePurchaseChart = (props) => {
                                             ? ""
                                             : "text-primary"
                                     } fs-6`}
+                                    onClick={() => isSetLineChart(false)}
                                 >
                                     {getFormattedMessage("bar.title")}
                                 </NavDropdown.Item>
@@ -160,19 +205,16 @@ const ThisWeekSalePurchaseChart = (props) => {
                             </NavDropdown>
                         </div>
                     </Card.Header>
-                    <Card.Body>
-                        <div>
+                    <Card.Body className="stokapos-chart-card__body">
+                        <div className="stokapos-chart-canvas">
                             {data && currency && isLineChart === false && (
-                                <Bar
-                                    options={options}
-                                    data={data}
-                                    height={100}
-                                />
+                                <Bar options={options} data={data} />
                             )}
                             {data && currency && isLineChart === true && (
                                 <LineChart
                                     weekSalePurchase={weekSalePurchase}
                                     frontSetting={frontSetting}
+                                    allConfigData={allConfigData}
                                 />
                             )}
                         </div>
@@ -180,22 +222,22 @@ const ThisWeekSalePurchaseChart = (props) => {
                 </Card>
             </div>
             <div className="col-xxl-4 col-12">
-                <Card>
-                    <Card.Header className="pb-0 px-0 justify-content-center">
-                        <h4 className="mb-3 me-1">
+                <Card className="stokapos-card stokapos-chart-card h-100">
+                    <Card.Header className="pb-0 px-0 justify-content-center border-0 text-center">
+                        <h4 className="mb-1">
                             {getFormattedMessage(
                                 "dashboard.TopSellingProducts.title"
                             )}
                         </h4>
-                        <h4>({moment(year).format("YYYY")})</h4>
+                        <p className="stokapos-card__subtitle mb-0">
+                            Best movers for {moment(year).format("YYYY")}
+                        </p>
                     </Card.Header>
-                    <Card.Body className="p-3">
-                        {/*<div className='h-75 w-75 align-items-center'>*/}
+                    <Card.Body className="p-3 stokapos-chart-card__body">
                         <TopSellingProductChart
                             yearTopProduct={yearTopProduct}
                             frontSetting={frontSetting}
                         />
-                        {/*</div>*/}
                     </Card.Body>
                 </Card>
             </div>

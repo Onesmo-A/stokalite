@@ -17,7 +17,7 @@ const AsideTopSubMenuItem = (props) => {
         <nav
             className={`navbar navbar-expand-xl ${
                 isMenuCollapse === true ? "top-navbar" : "top-nav-heding"
-            } navbar-light d-xl-flex align-items-stretch d-block px-3 px-xl-0 py-4 py-xl-0`}
+            } navbar-light d-xl-flex align-items-stretch d-block px-3 px-xl-0 py-2 py-xl-0`}
         >
             <div className="navbar-collapse">
                 <Dropdown className="d-flex align-items-stretch me-3 report_dropdown">

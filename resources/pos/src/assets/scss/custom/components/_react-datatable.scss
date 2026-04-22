@@ -14,6 +14,102 @@
     z-index: 1;
 }
 
+[data-theme="dark"] {
+    .rdt_TableHeader,
+    .rdt_Table,
+    .rdt_TableHeadRow,
+    .rdt_TableRow,
+    .rdt_Pagination,
+    .data-table > :nth-child(2) {
+        background: var(--stokapos-surface) !important;
+        color: var(--stokapos-text-secondary) !important;
+        border-color: var(--stokapos-border) !important;
+        box-shadow: none !important;
+    }
+
+    .rdt_Table .rdt_TableHead .rdt_TableHeadRow,
+    .rdt_Table .rdt_TableHead .rdt_TableHeadRow .rdt_TableCol {
+        background: var(--stokapos-surface-alt) !important;
+        color: var(--stokapos-text-muted) !important;
+        border-color: var(--stokapos-border) !important;
+    }
+
+    .rdt_Table .rdt_TableBody .rdt_TableRow,
+    .rdt_Table .rdt_TableBody .rdt_TableRow .rdt_TableCell,
+    .rdt_Table .rdt_TableBody .rdt_TableRow:nth-child(even),
+    .rdt_Table .rdt_TableBody .rdt_TableRow:nth-child(even) .rdt_TableCell {
+        background: transparent !important;
+        color: var(--stokapos-text-secondary) !important;
+        border-color: var(--stokapos-border) !important;
+    }
+
+    .rdt_Pagination,
+    .rdt_Pagination * {
+        background: transparent !important;
+        color: var(--stokapos-text-secondary) !important;
+        fill: var(--stokapos-text-secondary) !important;
+    }
+
+    div .rdt_Pagination div:first-of-type select {
+        background: var(--stokapos-surface-alt) !important;
+        color: var(--stokapos-text-primary) !important;
+        border-color: var(--stokapos-border) !important;
+    }
+
+    div .rdt_Pagination div:nth-child(4) button {
+        background: var(--stokapos-surface-alt) !important;
+        border-color: var(--stokapos-border) !important;
+    }
+}
+
+[data-theme="dark"] {
+    .rdt_TableHeader,
+    .rdt_Table,
+    .rdt_TableHeadRow,
+    .rdt_TableRow,
+    .rdt_Pagination,
+    .data-table > :nth-child(2) {
+        background: var(--stokapos-surface) !important;
+        color: var(--stokapos-text-secondary) !important;
+        border-color: var(--stokapos-border) !important;
+        box-shadow: none !important;
+    }
+
+    .rdt_Table .rdt_TableHead .rdt_TableHeadRow,
+    .rdt_Table .rdt_TableHead .rdt_TableHeadRow .rdt_TableCol {
+        background: var(--stokapos-surface-alt) !important;
+        color: var(--stokapos-text-muted) !important;
+        border-color: var(--stokapos-border) !important;
+    }
+
+    .rdt_Table .rdt_TableBody .rdt_TableRow,
+    .rdt_Table .rdt_TableBody .rdt_TableRow .rdt_TableCell,
+    .rdt_Table .rdt_TableBody .rdt_TableRow:nth-child(even),
+    .rdt_Table .rdt_TableBody .rdt_TableRow:nth-child(even) .rdt_TableCell {
+        background: transparent !important;
+        color: var(--stokapos-text-secondary) !important;
+        border-color: var(--stokapos-border) !important;
+    }
+
+    .rdt_Pagination,
+    .rdt_Pagination * {
+        background: transparent !important;
+        color: var(--stokapos-text-secondary) !important;
+        fill: var(--stokapos-text-secondary) !important;
+    }
+
+    div .rdt_Pagination div:first-of-type select {
+        background: var(--stokapos-surface-alt) !important;
+        color: var(--stokapos-text-primary) !important;
+        border-color: var(--stokapos-border) !important;
+    }
+
+    div .rdt_Pagination div:nth-child(4) button {
+        background: var(--stokapos-surface-alt) !important;
+        border-color: var(--stokapos-border) !important;
+    }
+}
+
 .rdt_Table {
     margin-top: 1.25rem !important;
     border-radius: 0.625rem;

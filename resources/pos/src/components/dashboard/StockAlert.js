@@ -15,12 +15,16 @@ const StockAlert = ( props ) => {
         <div className='pt-6'>
             <Row className='g-4'>
                 <div className='col-12'>
-                    <Card>
-                        <Card.Header className='pb-0 px-10'>
-                            <h5 className="mb-0">{getFormattedMessage( "dashboard.stockAlert.title" )}</h5>
+                    <Card className='stokapos-card'>
+                        <Card.Header className='pb-0 px-10 border-0'>
+                            <h5 className="mb-1">{getFormattedMessage( "dashboard.stockAlert.title" )}</h5>
+                            <p className="stokapos-card__subtitle mb-0">
+                                Products approaching reorder threshold across warehouses
+                            </p>
                         </Card.Header>
                         <Card.Body className='pt-7 pb-2'>
-                            <Table responsive>
+                            <div className="stokapos-table-wrap">
+                                <Table responsive className="stokapos-table">
                                 <thead>
                                     <tr>
                                         <th>{getFormattedMessage( "dashboard.stockAlert.code.label" )}</th>
@@ -51,7 +55,8 @@ const StockAlert = ( props ) => {
                                         )
                                     } )}
                                 </tbody>
-                            </Table>
+                                </Table>
+                            </div>
                         </Card.Body>
                     </Card>
                 </div>

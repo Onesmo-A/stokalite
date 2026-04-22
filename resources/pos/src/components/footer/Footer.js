@@ -3,7 +3,7 @@ import React from "react";
 const Footer = (props) => {
     const { allConfigData, frontSetting } = props;
     return (
-        <footer className="border-top w-100 pt-4 mt-7 d-flex justify-content-between">
+        <footer className="border-top w-100 pt-4 mt-7 d-flex justify-content-between stokapos-footer">
             <p className="fs-6 text-gray-600">
                 All Rights Reserved ©{new Date().getFullYear()}
                 <a href="#" className="text-decoration-none">

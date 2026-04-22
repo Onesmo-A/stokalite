@@ -1,6 +1,12 @@
 import React from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { currencySymbolHandling } from "../sharedMethod";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faEllipsisVertical,
+    faArrowTrendUp,
+    faArrowTrendDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Widget = (props) => {
     const {
@@ -12,6 +18,9 @@ const Widget = (props) => {
         iconClass,
         onClick,
         allConfigData,
+        accentClass,
+        badgeText,
+        trendDirection,
     } = props;
 
     const renderTooltip = (props) => (
@@ -23,29 +32,63 @@ const Widget = (props) => {
     return (
         <div className="col-xxl-3 col-xl-4 col-sm-6 widget" onClick={onClick}>
             <div
-                className={`${className} shadow-md rounded-10 p-xxl-10 px-7 py-10 d-flex align-items-center justify-content-between my-3`}
+                className={`stokapos-kpi-card ${className} ${accentClass || ""}`}
             >
-                <div
-                    className={`${iconClass} widget-icon rounded-10 d-flex align-items-center justify-content-center`}
-                >
-                    {icon}
-                </div>
-                <div className="text-end text-white">
-                    <OverlayTrigger
-                        placement="bottom"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={renderTooltip}
-                    >
-                        <h2 className="fs-1-xxl fw-bolder text-white">
-                            {currencySymbolHandling(
-                                allConfigData,
-                                currency,
-                                value,
-                                true
-                            )}
-                        </h2>
-                    </OverlayTrigger>
-                    <h3 className="mb-0 fs-4 fw-light">{title}</h3>
+                <div className="stokapos-kpi-card__content">
+                    <div className="stokapos-kpi-card__topline">
+                        <div className="stokapos-kpi-card__meta">
+                            <div
+                                className={`${iconClass} widget-icon rounded-10 d-flex align-items-center justify-content-center stokapos-kpi-card__icon`}
+                            >
+                                {icon}
+                            </div>
+                            <span className="stokapos-kpi-card__label">
+                                {title}
+                            </span>
+                        </div>
+                        <button
+                            type="button"
+                            className="stokapos-kpi-card__menu"
+                            tabIndex={-1}
+                            aria-label={`${title} options`}
+                        >
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        </button>
+                    </div>
+                    <div className="stokapos-kpi-card__bottomline">
+                        <OverlayTrigger
+                            placement="bottom"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={renderTooltip}
+                        >
+                            <h2 className="stokapos-kpi-card__value">
+                                {currencySymbolHandling(
+                                    allConfigData,
+                                    currency,
+                                    value,
+                                    true
+                                )}
+                            </h2>
+                        </OverlayTrigger>
+                        {badgeText ? (
+                            <span
+                                className={`stokapos-kpi-card__badge stokapos-kpi-card__badge--${
+                                    trendDirection === "down"
+                                        ? "down"
+                                        : "up"
+                                }`}
+                            >
+                                <FontAwesomeIcon
+                                    icon={
+                                        trendDirection === "down"
+                                            ? faArrowTrendDown
+                                            : faArrowTrendUp
+                                    }
+                                />
+                                {badgeText}
+                            </span>
+                        ) : null}
+                    </div>
                 </div>
             </div>
         </div>

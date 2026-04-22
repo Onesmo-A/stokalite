@@ -7,7 +7,7 @@ const PosHeader = ( props ) => {
     const { setSelectedCustomerOption, selectedCustomerOption, setSelectedOption, selectedOption, customerModel, updateCustomer } = props;
 
     return (
-        <div className='top-nav my-3'>
+        <div className='top-nav mt-0 mb-3'>
             <Row className="align-items-center justify-content-between grp-select h-100">
                 <CustomerDropDown setSelectedCustomerOption={setSelectedCustomerOption}
                     selectedCustomerOption={selectedCustomerOption} customerModel={customerModel}

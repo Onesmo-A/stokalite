@@ -33,6 +33,7 @@ const AsideMenu = (props) => {
     const { id } = useParams();
     const [searchTerm, setSearchTerm] = useState("");
     const updatedLanguage = localStorage.getItem(Tokens.UPDATED_LANGUAGE);
+    const safeAsideConfig = Array.isArray(asideConfig) ? asideConfig : [];
 
     useEffect(() => {
         updateMenu();
@@ -50,13 +51,15 @@ const AsideMenu = (props) => {
 
     // search-bar handling
     const filterMenu = (asideConfig, searchTerm) => {
+        const menuItems = Array.isArray(asideConfig) ? asideConfig : [];
+
         if (!searchTerm) {
-            return asideConfig;
+            return menuItems;
         }
-        return asideConfig.filter((post) => {
+        return menuItems.filter((post) => {
             if (post.newRoute || post.subTitles) {
                 if (post.newRoute) {
-                    const allrouth = post.newRoute.map((posts) => {
+                    const allrouth = (Array.isArray(post.newRoute) ? post.newRoute : []).map((posts) => {
                         const postName = intl
                             .formatMessage({ id: `${posts.title}` })
                             .toLowerCase();
@@ -64,7 +67,7 @@ const AsideMenu = (props) => {
                     });
                     return allrouth.includes(true);
                 } else {
-                    const allrouth = post.subTitles.map((posts) => {
+                    const allrouth = (Array.isArray(post.subTitles) ? post.subTitles : []).map((posts) => {
                         const postName = intl
                             .formatMessage({ id: `${posts.title}` })
                             .toLowerCase();
@@ -81,7 +84,7 @@ const AsideMenu = (props) => {
         });
     };
 
-    const filteredMenu = filterMenu(asideConfig, searchTerm);
+    const filteredMenu = filterMenu(safeAsideConfig, searchTerm);
 
     // side sub-menu handling
     useEffect(() => {
@@ -350,7 +353,7 @@ const AsideMenu = (props) => {
                                         }
                                         icon={mainItems.fontIcon}
                                     >
-                                        {mainItems.newRoute.map(
+                                        {(Array.isArray(mainItems.newRoute) ? mainItems.newRoute : []).map(
                                             (subMainItems, index) => {
                                                 // subPath.push(subMainItems.to)
                                                 return (

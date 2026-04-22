@@ -39,7 +39,7 @@ function App() {
     const [mappedRoutes, setMappedRoutes] = useState([]);
     const [redirectTo, setRedirectTo] = useState('');
     useEffect(() => {
-        setMappedRoutes(config.map(mapPermissionToRoute));
+        setMappedRoutes(Array.isArray(config) ? config.map(mapPermissionToRoute) : []);
     }, [config]);
 
     useEffect(() => {
@@ -106,15 +106,15 @@ function App() {
 
     const selectCSS = () => {
         if (updatedLanguage === "ar") {
-            require("./assets/css/custom.rtl.css");
             require("./assets/css/style.rtl.css");
             require("./assets/css/frontend.rtl.css");
             require("./assets/css/mobile.rtl.css");
+            require("./assets/css/custom.rtl.css");
         } else {
-            require("./assets/css/custom.css");
             require("./assets/css/style.css");
             require("./assets/css/frontend.css");
             require("./assets/css/mobile.css");
+            require("./assets/scss/custom/custom.scss");
         }
     };
 

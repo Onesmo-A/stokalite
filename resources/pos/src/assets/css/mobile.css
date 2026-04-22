@@ -50,7 +50,7 @@
         position: sticky;
         top: 0;
         z-index: 1020;
-        background: #fff;
+        background: var(--stokapos-surface) !important;
     }
 
     .content {
@@ -61,6 +61,19 @@
     .pos-screen {
         padding-left: 8px !important;
         padding-right: 8px !important;
+        padding-bottom: calc(var(--pos-cart-height) + 24px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .pos-screen .top-nav {
+        margin-bottom: 12px !important;
+    }
+
+    .pos-screen .top-nav .grp-select {
+        gap: 12px 0;
+    }
+
+    .pos-screen .top-nav .select-box {
+        width: 100%;
     }
 
     .pos-screen .left-content {
@@ -110,7 +123,7 @@
 
 /* POS mobile bottom-sheet cart */
 :root {
-    --pos-cart-height: 52vh;
+    --pos-cart-height: min(58dvh, 34rem);
 }
 
 .pos-screen--mobile .pos-right-scs {
@@ -124,6 +137,7 @@
     bottom: 0;
     height: calc(var(--pos-cart-height) + env(safe-area-inset-bottom, 0px));
     z-index: 1020;
+    padding: 0 8px env(safe-area-inset-bottom, 0px);
 }
 
 .pos-screen--mobile .pos-cart-panel {
@@ -135,6 +149,7 @@
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.14);
+    margin: 0 auto;
 }
 
 /* Ensure legacy table sizing doesn't break flex layout */
@@ -150,6 +165,7 @@
     min-height: 0 !important;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
 }
 
 .pos-screen--mobile .pos-cart-table th,
@@ -218,6 +234,25 @@
     order: 1;
     padding-top: 0.5rem !important;
     padding-bottom: 0.5rem !important;
+}
+
+.pos-screen--mobile .product-list-block .product-custom-card {
+    width: calc(50% - 12px) !important;
+}
+
+@media (max-width: 420px) {
+    .pos-screen--mobile .search-bar,
+    .pos-screen--mobile .pos-header-btn {
+        width: 100%;
+    }
+
+    .pos-screen--mobile .product-list-block {
+        min-height: calc(100vh - 280px);
+    }
+
+    .pos-screen--mobile .product-list-block .product-custom-card {
+        width: calc(50% - 12px) !important;
+    }
 }
 /* POS cart adjustments toggle (mobile) */
 .pos-screen--mobile .pos-cart-adjustments-mobile {

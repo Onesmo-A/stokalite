@@ -23,7 +23,7 @@ const CustomerDropDown = (props) => {
     };
 
     return (
-        <div className='select-box col-6 pe-sm-1 position-relative'>
+        <div className='select-box col-6 pe-1 position-relative'>
             <InputGroup className='flex-nowrap '>
                 <InputGroup.Text id='basic-addon1' className='bg-transparent position-absolute border-0 z-index-1 input-group-text py-4 px-3'>
                     <i className="bi bi-person fs-2 text-gray-900" />
@@ -35,6 +35,7 @@ const CustomerDropDown = (props) => {
                     onChange={onChangeWarehouse}
                     options={customerOption}
                     noOptionsMessage={() => getFormattedMessage('no-option.label')}
+                    classNamePrefix='stokapos-select'
                 />
                 <Button onClick={() => customerModel(true)} className='position-absolute'><FontAwesomeIcon icon={faUserPlus} /></Button>
             </InputGroup>
