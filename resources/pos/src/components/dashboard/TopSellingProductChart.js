@@ -3,6 +3,9 @@ import ReactECharts from "echarts-for-react";
 
 const TopSellingProductChart = (props) => {
     const { yearTopProduct } = props;
+    const isMobile =
+        typeof window !== "undefined" &&
+        window.matchMedia("(max-width: 767px)").matches;
     const allQuantity = Array.isArray(yearTopProduct?.total_quantity)
         ? yearTopProduct.total_quantity
         : [];
@@ -34,9 +37,10 @@ const TopSellingProductChart = (props) => {
             },
         },
         legend: {
-            orient: "vertical",
-            right: 0,
-            top: "center",
+            orient: isMobile ? "horizontal" : "vertical",
+            right: isMobile ? "auto" : 0,
+            left: isMobile ? "center" : "auto",
+            top: isMobile ? "bottom" : "center",
             textStyle: {
                 color: cssVariables
                     .getPropertyValue("--stokapos-text-secondary")
@@ -47,9 +51,11 @@ const TopSellingProductChart = (props) => {
             {
                 name: "",
                 type: "pie",
-                radius: ["48%", "74%"],
+                radius: isMobile ? ["38%", "62%"] : ["48%", "74%"],
+                center: isMobile ? ["50%", "40%"] : ["50%", "50%"],
                 data: allData,
                 label: {
+                    show: !isMobile,
                     color: cssVariables
                         .getPropertyValue("--stokapos-text-secondary")
                         .trim(),
@@ -65,7 +71,7 @@ const TopSellingProductChart = (props) => {
         ],
     };
 
-    return <ReactECharts option={option} style={{ height: 360 }} />;
+    return <ReactECharts option={option} style={{ height: isMobile ? 300 : 360 }} />;
 };
 
 export default TopSellingProductChart;

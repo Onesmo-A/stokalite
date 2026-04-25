@@ -29,6 +29,17 @@
 
         .select-box {
             height: 100% !important;
+            min-width: 0;
+
+            .input-group-text {
+                width: 36px;
+                padding: 0.95rem 0.75rem !important;
+                box-shadow: none !important;
+
+                i {
+                    font-size: 1.05rem !important;
+                }
+            }
 
             > div {
                 height: 100% !important;
@@ -65,7 +76,8 @@
                 .css-1d8n9bt,
                 .css-hlgwow {
                     font-family: Poppins, sans-serif !important;
-                    padding-left: 35px !important;
+                    padding-left: 46px !important;
+                    padding-right: 10px !important;
                 }
 
                 .css-tlfecz-indicatorContainer,
@@ -104,6 +116,8 @@
             border-color: $white !important;
             color: $white !important;
             height: 60px;
+            width: 44px;
+            min-width: 44px;
             left: -8px;
             border-radius: 0px 15px 15px 0px !important;
             left: auto;
@@ -144,12 +158,16 @@
         .select-box .css-1fdsijx-ValueContainer,
         .select-box .css-1d8n9bt,
         .select-box .css-hlgwow {
-            padding-left: 2.25rem !important;
+            padding-left: 2.5rem !important;
             padding-right: 0.25rem !important;
         }
 
         .select-box .input-group-text {
-            padding: 0.85rem 0.75rem !important;
+            padding: 0.75rem 0.65rem !important;
+        }
+
+        .select-box .input-group-text i {
+            font-size: 1rem !important;
         }
 
         .select-box button {
@@ -179,10 +197,14 @@
 
 .left-content {
     height: 88.95vh !important;
+    display: flex;
+    flex-direction: column;
+
     .main-table {
-        height: auto;
-        min-height: calc(100vh - 354px);
-        max-height: 470px;
+        flex: 1 1 auto;
+        min-height: 0;
+        max-height: none;
+        overflow: auto;
 
         table {
             tr {
@@ -300,6 +322,15 @@
         .input-group-text {
             z-index: 99;
         }
+    }
+
+    .pos-cart-totals,
+    .pos-payment-actions {
+        flex: 0 0 auto;
+    }
+
+    .pos-cart-totals {
+        margin-top: 1rem !important;
     }
 }
 

@@ -267,3 +267,14 @@
         color: white !important;
     }
 }
+
+@media (max-width: 767px) {
+    .stokapos-chart-card__body {
+        min-height: 340px;
+    }
+
+    .stokapos-chart-card .card-header {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}

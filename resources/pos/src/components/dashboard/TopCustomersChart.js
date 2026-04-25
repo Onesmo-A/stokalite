@@ -6,6 +6,9 @@ import ReactECharts from "echarts-for-react";
 
 const TopCustomersChart = (props) => {
     const { frontSetting, topCustomers, allConfigData, languageCode } = props;
+    const isMobile =
+        typeof window !== "undefined" &&
+        window.matchMedia("(max-width: 767px)").matches;
     const month = new Date();
     const currency = frontSetting
         ? frontSetting.value && frontSetting.value.currency_symbol
@@ -45,9 +48,10 @@ const TopCustomersChart = (props) => {
                     : `{b} : ${currency} {c} ({d}%)`,
         },
         legend: {
-            orient: "vertical",
-            right: 0,
-            top: "center",
+            orient: isMobile ? "horizontal" : "vertical",
+            right: isMobile ? "auto" : 0,
+            left: isMobile ? "center" : "auto",
+            top: isMobile ? "bottom" : "center",
             textStyle: {
                 color: cssVariables
                     .getPropertyValue("--stokapos-text-secondary")
@@ -58,9 +62,11 @@ const TopCustomersChart = (props) => {
             {
                 name: "",
                 type: "pie",
-                radius: ["46%", "72%"],
+                radius: isMobile ? ["38%", "62%"] : ["46%", "72%"],
+                center: isMobile ? ["50%", "40%"] : ["50%", "50%"],
                 data: allData,
                 label: {
+                    show: !isMobile,
                     color: cssVariables
                         .getPropertyValue("--stokapos-text-secondary")
                         .trim(),
@@ -89,7 +95,7 @@ const TopCustomersChart = (props) => {
                     </p>
                 </Card.Header>
                 <Card.Body className="p-3 stokapos-chart-card__body">
-                    <ReactECharts option={option} style={{ height: 360 }} />
+                    <ReactECharts option={option} style={{ height: isMobile ? 300 : 360 }} />
                 </Card.Body>
             </Card>
         </div>
